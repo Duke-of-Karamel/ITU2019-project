@@ -1,13 +1,6 @@
 <?php
-$servername = "";
-$username = null;
-$password = null;
-$database = "";
+require 'db_connect.php';
 
-$conn = new mysqli($servername, $username, $password, $database);
-if ($conn->connect_error){
-    die(500);
-}
 
 try
 {

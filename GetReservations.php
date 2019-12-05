@@ -1,13 +1,5 @@
 <?php
-$servername = "";
-$username = null;
-$password = null;
-$database = "";
-
-$conn = new mysqli($servername, $username, $password, $database);
-if ($conn->connect_error){
-    die(500);
-}
+require 'db_connect.php';
 
 
 $sql = "SELECT * FROM Reservation";
