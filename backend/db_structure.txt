@@ -1,0 +1,77 @@
+-- phpMyAdmin SQL Dump
+-- version 4.2.2
+-- http://www.phpmyadmin.net
+--
+-- Počítač: wh41.farma.gigaserver.cz
+-- Vytvořeno: Pát 06. pro 2019, 23:33
+-- Verze serveru: 5.6.45-86.1
+-- Verze PHP: 5.3.3
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Databáze: `vevesoft_net_stdb`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabulky `reservations`
+--
+
+CREATE TABLE IF NOT EXISTS `reservations` (
+`reservation_id` int(11) NOT NULL,
+  `user_id` varchar(60) NOT NULL,
+  `dt_created` int(11) NOT NULL,
+  `dt_from` int(11) NOT NULL,
+  `dt_to` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabulky `rooms`
+--
+
+CREATE TABLE IF NOT EXISTS `rooms` (
+`room_id` int(11) NOT NULL,
+  `room_name` varchar(40) NOT NULL,
+  `room_description` text NOT NULL,
+  `room_shortcut` varchar(15) NOT NULL,
+  `schema_src` varchar(256) NOT NULL,
+  `schema_x` int(11) NOT NULL,
+  `schema_y` int(11) NOT NULL,
+  `capacity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Klíče pro exportované tabulky
+--
+
+--
+-- Klíče pro tabulku `reservations`
+--
+ALTER TABLE `reservations`
+ ADD PRIMARY KEY (`reservation_id`);
+
+--
+-- Klíče pro tabulku `rooms`
+--
+ALTER TABLE `rooms`
+ ADD PRIMARY KEY (`room_id`);
+
+--
+-- AUTO_INCREMENT pro tabulky
+--
+
+--
+-- AUTO_INCREMENT pro tabulku `reservations`
+--
+ALTER TABLE `reservations`
+MODIFY `reservation_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pro tabulku `rooms`
+--
+ALTER TABLE `rooms`
+MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT;
