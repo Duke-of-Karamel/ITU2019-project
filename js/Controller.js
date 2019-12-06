@@ -11,8 +11,13 @@
         $("body").empty();
 
         this.mainView = new MainView($("body"));
-
         this.mainView.build();
+        this.getUrl = "https://vevesoft.net/ituproject/GetReservations.php";
+
+        // Test data request
+        $.ajax(this.getUrl).done((data) => {
+            this.mainView.$container.find("section").append(`<pre>${JSON.stringify(data, null, 2)}</pre>`);
+        });
     }
  }
 

@@ -27,7 +27,7 @@ class MainView
                 </header>
 
                 <section>
-                    Toto je nejaky content
+                    Zatim tu necham Controller vyprintit obsah db.
                 </section>
             </div>
         `; 
