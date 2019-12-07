@@ -141,4 +141,15 @@ table.week_table {
     border-top: 2px solid green;
     border-bottom: 2px solid green;
     width: 100%;
+    border-collapse: collapse;
+}
+
+table.week_table td {
+    padding: 30px 0;
+    border: 1px solid green;
+
+}
+
+table.week_table tr {
+    
 }
