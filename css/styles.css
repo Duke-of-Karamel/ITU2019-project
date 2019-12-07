@@ -98,3 +98,11 @@ section {
    margin-top: -15%;
    width: 100%;
  }
+
+ table.res-list-table {
+
+ }
+
+table.res-list-table td {
+    padding: 5px;
+}

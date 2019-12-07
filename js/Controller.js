@@ -6,19 +6,35 @@
     constructor()
     {
         console.log("Constructing application controller.");
+        
+        this.currentView    = null;
+        this.loggedUser     = "test_user";
+        this.getUrl         = "https://vevesoft.net/ituproject/GetReservations.php";
 
         // Make sure the body is clean
         $("body").empty();
 
-        this.myResView = new MyReservationsView(this);
-        this.mainView  = new MainView(this, this.myResView);
-        this.currentView = null;
-        this.getUrl = "https://vevesoft.net/ituproject/GetReservations.php";
+        this.mainView           = new MainView(this, this.myResView);
+        let $mainSection        = this.mainView.$container.find("section");
+        this.myResView          = new MyReservationsView(this);
+        this.myWeekScheduleView = new WeekScheduleView(this);
 
+        this.myResView.$container.hide();
+        this.myWeekScheduleView.$container.hide();
 
-        // Test data request
+        $mainSection.append(this.myWeekScheduleView.$container);
+        $mainSection.append(this.myResView.$container);
+
+        this.refreshData();
+    }
+
+    refreshData()
+    {
         $.ajax(this.getUrl).done((data) => {
-            this.mainView.$container.find("section").append(`<pre>${JSON.stringify(data, null, 2)}</pre>`);
+            // this.mainView.$container.find("section").append(`<pre>${JSON.stringify(data, null, 2)}</pre>`);
+            let transformedData = this.resDataTransform(data);
+            this.myResView.update(transformedData);
+            
         });
     }
 
@@ -27,7 +43,7 @@
         let result = [];
         for (let it of data_from_server.reservations) 
         {
-            let room = data_from_server.rooms.find((val) => val.room_id == it.romm_id);    
+            let room = data_from_server.rooms.find((val) => val.room_id == it.room_id);    
             it.room = room;
             result.push(it);
         }
@@ -44,13 +60,23 @@
     onViewChange(viewName)
     {
         console.log("Changing view to " + viewName);
+        if (this.currentView != null)
+            this.currentView.$container.hide();
         let nextView = null;
         if (viewName == "myResView")
             nextView = this.myResView;
-        else 
+        else if (viewName == "WeekScheduleView")
+            nextView = this.myWeekScheduleView;
+        else
             return;
         
         this.currentView = nextView;
+        this.currentView.$container.fadeIn(300);
+    }
+
+    getCurrentUser()
+    {
+        return this.loggedUser;
     }
  }
 

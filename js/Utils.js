@@ -1,8 +1,8 @@
 class Utils 
 {
-    static parseTimestamp(timestampseconds)
+    static parseTimeStamp(timestampseconds)
     {
-        let dt = new Date(timestamp * 1000);
+        let dt = new Date(timestampseconds * 1000);
         return `${dt.getDay()}.${dt.getMonth()}.${dt.getFullYear()} ${dt.getHours()}:${dt.getMinutes()}`;
     }
 }
