@@ -109,6 +109,7 @@ class WeekScheduleView
 
     onTryReserve($element)
     {
+        console.log(`Clicked in table pos [${$element.data(row)}] [${$element.data(col)}]`);
         if (this.$room_selected == "ALL")
         {
             this.$controller.plsChangeToDayScheduleByLadislav // TODO
@@ -129,7 +130,7 @@ class WeekScheduleView
     makeRoomPicker(rooms)
     {
         rooms.forEach(room => {
-            this.$container.find("#room_picker").append("<option>" + room + "</option>");
+            this.$container.find("#room_picker").append("<option>" + room.room_shortcut + "</option>");
         });
     }
 
