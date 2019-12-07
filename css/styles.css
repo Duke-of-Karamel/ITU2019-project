@@ -3,6 +3,7 @@ body {
     width: 100%;
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
+    background-image: url("https://vevesoft.net/ituproject/noise2.png");
 }
 
 section {
@@ -146,6 +147,7 @@ table.week_table {
 table.week_table td {
     padding: 30px 0;
     border: 1px solid green;
+    background-color: white;
 
 }
 
@@ -159,4 +161,19 @@ table.week_table tr:first-child th {
     padding: 10px 0px;
     border-bottom: 3px solid green;
     background-image: linear-gradient(white, rgb(233, 233, 233));
+}
+
+.dayroom-setup {
+    display: flex;
+    margin: 15px;
+    align-items: flex-start;
+}
+
+.dayroom-setup p {
+    margin-right: 20px;
+    font-size: 20px;
+}
+
+.dayroom-setup-cont {
+    display: flex;
 }

@@ -14,20 +14,22 @@ class WeekScheduleView
     {
         let html = `
             <div class="week-schedule-container">
-                <span>
-                    <p>Datum: </p>
-                    <button id="dt_shl">&lt;</button>
-                    <input type="date" id="dt_picker" name="date">
-                    <button id="dt_now">Now</button>
-                    <button id="dt_shr">&gt;</button>
-                </span>
-                <span>
-                    <p>Místnost: </p>
-                    <select id="room_picker" name="room">
-                        <option value="0">ALL</option>
-                        <!-- Here add more with query -->
-                    </select>
-                </span>
+                <div class="dayroom-setup-cont">
+                    <div class="dayroom-setup">
+                        <p>Datum: </p>
+                        <button id="dt_shl">&lt;</button>
+                        <input type="date" id="dt_picker" name="date">
+                        <button id="dt_now">Now</button>
+                        <button id="dt_shr">&gt;</button>
+                    </div>
+                    <div class="dayroom-setup">
+                        <p>Místnost: </p>
+                        <select id="room_picker" name="room">
+                            <option value="0">ALL</option>
+                            <!-- Here add more with query -->
+                        </select>
+                    </div>
+                </div>
                 <table class="week_table">
                     <tr>
                         <th class="tHead">Čas</th> <th class="tHead">4:00-:59</th> <th class="tHead">5:00-:59</th> <th class="tHead">6:00-:59</th> <th class="tHead">7:00-:59</th> <th class="tHead">8:00-:59</th> <th class="tHead">9:00-:59</th> <th class="tHead">10:00-:59</th> <th class="tHead">11:00-:59</th> <th class="tHead">12:00-:59</th> <th class="tHead">13:00-:59</th> <th class="tHead">14:00-:59</th> <th class="tHead">15:00-:59</th> <th class="tHead">16:00-:59</th> <th class="tHead">17:00-:59</th> <th class="tHead">18:00-:59</th> <th class="tHead">19:00-:59</th> <th class="tHead">20:00-:59</th> <th class="tHead">21:00-:59</th> <th class="tHead">22:00-:59</th>
