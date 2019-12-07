@@ -1,9 +1,11 @@
 
 class MainView 
 {
-    constructor($container)
+    constructor(controller)
     {
-        this.$container = $container;
+        this.controller = controller;
+        this.$container = $("body");
+        this.build();
     }
 
     build()
@@ -16,8 +18,9 @@ class MainView
                     </div>
 
                     <div class="header-middle">
-                        <div class="menu-item btn-green">Rooms</div>
-                        <div class="menu-item btn-green">Week</div>
+                        <div data-view="roomScheduleView" class="menu-item btn-green menu-item-active">Rooms</div>
+                        <div data-view="WeekScheduleView" class="menu-item btn-green">Week</div>
+                        <div data-view="myResView" class="menu-item btn-green">My reservations</div>
                     </div>
 
                     <div class="header-right">
@@ -33,5 +36,12 @@ class MainView
         `; 
 
         this.$container.append(html);
+
+        this.$container.find(".menu-item").on("click", (el) => {
+            let $el = $(el.currentTarget);
+            this.$container.find(".menu-item").removeClass("menu-item-active");
+            $el.addClass("menu-item-active");
+            this.controller.onViewChange( $el.data("view") );
+        })
     }
 }

@@ -2,18 +2,14 @@ class WeekScheduleView
 {
     constructor()
     {
-        this.$container = '';
-    }
-
-    constructor($container)
-    {
-        this.$container = $container;
+        this.$container = null; // Is set later in build
+        this.build();
     }
 
     build()
     {
         let html = `
-            <div>
+            <div class="week-schedule-container">
                 <span>
                     <p>Datum: </p>
                     <button id="dt_shl">&lt;</button>
@@ -57,18 +53,17 @@ class WeekScheduleView
             </div>
         `;
 
-        this.$container.append(html);
-
+        this.$container = $(html);
         
-        this.$container.find(".week_table.tCont").on("click",onReserve()); // TODO onReserve()
-        this.$container.find("#dt_picker").on("change",onDateChange()); // TODO onDateChange()
-        this.$container.find("#dt_shl").on("change",onDateShl()); // TODO
-        this.$container.find("#dt_shr").on("change",onDateShr()); // TODO
-        this.$container.find("#dt_now").on("change",onDateNow()); // TODO
-        this.$container.find("#room_picker").on("change",onRoomChange()); // TODO onRoomChange()
+        this.$container.find(".week_table.tCont").on("click", (event) => this.onReserve($(event.currentTarget))); // TODO onReserve()
+        this.$container.find("#dt_picker").on("change", (event) => this.onDateChange($(event.currentTarget))); // TODO onDateChange()
+        this.$container.find("#dt_shl").on("change",(event) => this.onDateShl($(event.currentTarget))); // TODO
+        this.$container.find("#dt_shr").on("change",(event) => this.onDateShr($(event.currentTarget))); // TODO
+        this.$container.find("#dt_now").on("change",(event) => this.onDateNow($(event.currentTarget))); // TODO
+        this.$container.find("#room_picker").on("change",(event) => this.onRoomChange($(event.currentTarget))); // TODO onRoomChange()
     }
 
-    onDateChange()
+    onDateChange($element)
     {
         this.$dt_selected = new Date(this.$container.find("#dt_picker").val())
     }

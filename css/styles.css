@@ -43,7 +43,7 @@ section {
 }
 
 .btn-green {
-    background-color: rgb(37, 110, 32);
+    background-image: linear-gradient( rgb(56, 167, 48), rgb(32, 92, 30));
     color: white;
     padding: 5px 25px;
     border-radius: 5px;
@@ -53,7 +53,7 @@ section {
 }
 
 .btn-green:hover {
-    background-color: rgb(56, 167, 48);
+    background-image: linear-gradient(rgb(32, 92, 30), rgb(56, 167, 48));
     cursor: pointer;
 }
 
@@ -61,6 +61,40 @@ section {
     margin-right: 5px;
 }
 
+.menu-item-active {
+    background-image: linear-gradient(rgb(32, 92, 30), rgb(56, 167, 48));
+}
+
 .auth-user {
     margin-right: 10px;
 }
+
+.cancel-cross {
+    width: 100px;
+    height: 100px;
+    position: relative;
+   transform:rotate(45deg);
+ -ms-transform:rotate(45deg); /* IE 9 */
+ -webkit-transform:rotate(45deg); /* Safari and Chrome */
+ }
+ 
+ .cancel-cross:before, .cancel-cross:after {
+   content: "";
+   position: absolute;
+   z-index: -1;
+   background: #d00;
+ }
+ 
+ .cancel-cross:before {
+   left: 50%;
+   width: 30%;
+   margin-left: -15%;
+   height: 100%;
+ }
+ 
+ .cancel-cross:after {
+   top: 50%;
+   height: 30%;
+   margin-top: -15%;
+   width: 100%;
+ }
