@@ -109,6 +109,7 @@ class WeekScheduleView
 
     onTryReserve($element)
     {
+        console.log(`Clicked in table pos [${$element.data(row)}] [${$element.data(col)}]`);
         if (this.$room_selected == "ALL")
         {
             this.$controller.plsChangeToDayScheduleByLadislav // TODO
