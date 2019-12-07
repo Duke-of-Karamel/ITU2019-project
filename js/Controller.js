@@ -26,6 +26,8 @@
         $mainSection.append(this.myResView.$container);
 
         this.refreshData();
+
+        this.onViewChange("WeekScheduleView");
     }
 
     refreshData()

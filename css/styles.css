@@ -100,9 +100,56 @@ section {
  }
 
  table.res-list-table {
-
+    margin-top: 10px;
+    margin-left: 10px;
+    border: 2px solid green;
+    box-shadow: 10px 10px 5px grey;
+    font-size: 20px;
+    border-collapse: collapse;
  }
 
 table.res-list-table td {
-    padding: 5px;
+    padding: 10px 30px;
+}
+
+table.res-list-table thead th {
+    padding: 10px 0;
+    border-bottom: 2px solid green;
+}
+
+table.res-list-table tbody tr:nth-child(odd)
+{
+    background-color: rgb(164, 255, 187);
+}
+
+table.res-list-table tbody tr:nth-child(even)
+{
+    background-color: #ffffff;
+}
+
+.cancel-cross {
+    width: 20px;
+    height: 20px;
+}
+
+.cancel-cross:hover {
+    cursor: pointer;
+}
+
+table.week_table {
+    table-layout: fixed;
+    border-top: 2px solid green;
+    border-bottom: 2px solid green;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table.week_table td {
+    padding: 30px 0;
+    border: 1px solid green;
+
+}
+
+table.week_table tr {
+    
 }

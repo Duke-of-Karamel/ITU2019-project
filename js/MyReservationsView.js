@@ -13,13 +13,13 @@ class MyReservationsView
         let html = `
             <div class="res-list-container">
                 <table class="res-list-table">
-                    <thead><th>From</th><th>To</th><th>Room</th><th>Cancel</th></thead>
+                    <thead><th>From</th><th>To</th><th>Room</th><th></th></thead>
                     <tbody class="res-list-tbody">
 
                     </tbody>
                 </table>
 
-                <div class="nothing-alert">Nemáte žádné rezervace</div>
+                <div title="Zrušit rezervaci" class="nothing-alert">Nemáte žádné rezervace</div>
             </div>
         `;
 
@@ -54,11 +54,11 @@ class MyReservationsView
                     <td>${Utils.parseTimeStamp(res.dt_from)}</td>
                     <td>${Utils.parseTimeStamp(res.dt_to)}</td>
                     <td>${res.room.room_shortcut}</td>
-                    <td><div data-res-id="${res.reservation_id}" class="cancel-cross"></td>
+                    <td><div data-res-id="${res.reservation_id}" class="cancel-cross"></div></td>
                 </tr>
             `);
 
-            $row.on("click", (element) => { this.controller.onReservationCancel($(element.currentTarget).data("data-res-id")) });
+            $row.find(".cancel-cross").on("click", (element) => { this.controller.onReservationCancel($(element.currentTarget).data("res-id")) });
 
             tbody.append($row);
         }
