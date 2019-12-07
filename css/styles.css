@@ -178,3 +178,7 @@ table.week_table tr:first-child th {
     display: flex;
     height: 70px;
 }
+
+select {
+    width: 100px;
+}
