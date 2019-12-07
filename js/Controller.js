@@ -36,7 +36,7 @@
             // this.mainView.$container.find("section").append(`<pre>${JSON.stringify(data, null, 2)}</pre>`);
             let transformedData = this.resDataTransform(data);
             this.myResView.update(transformedData);
-            this.myWeekScheduleView.update(data);
+            this.myWeekScheduleView.update(transformedData, data.rooms);
             
         });
     }

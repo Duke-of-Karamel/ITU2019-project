@@ -168,7 +168,7 @@ class WeekScheduleView
         //FIXME
     }
 
-    static isWithinWeek(dt_questionable, dt_week)
+    isWithinWeek(dt_questionable, dt_week)
     { /*604800 week in seconds*/
         let year = (dt_questionable.getFullYear() == dt_week.getFullYear());
         let month = (dt_questionable.getMonth() == dt_week.getMonth());
