@@ -25,7 +25,6 @@ class WeekScheduleView
                     <div class="dayroom-setup">
                         <div>Místnost: </div>
                         <select id="room_picker" name="room">
-                            <option value="0">ALL</option>
                             <!-- Here add more with query -->
                         </select>
                     </div>
@@ -130,6 +129,8 @@ class WeekScheduleView
 
     makeRoomPicker()
     {
+        this.$container.find("#room_picker").empty();
+        this.$container.find("#room_picker").append("<option selected>ALL</option>");
         this.$rooms.forEach(room => {
             this.$container.find("#room_picker").append("<option>" + room.room_shortcut + "</option>");
         });
