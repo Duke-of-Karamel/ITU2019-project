@@ -7,7 +7,6 @@ class WeekScheduleView
         this.build();
     }
 
-    utils = new Utils();
     $dt_selected = new Date();
 
     build()
@@ -59,7 +58,7 @@ class WeekScheduleView
 
         this.$container = $(html);
 
-        this.$container.find("#dt_picker").val(this.utils.datePickerFormat(new Date()));
+        this.$container.find("#dt_picker").val(Utils.datePickerFormat(new Date()));
         
         this.$container.find(".week_table.tCont").on("click", (event) => this.onReserve($(event.currentTarget)));
         this.$container.find("#dt_picker").on("change", (event) => this.onDateChange($(event.currentTarget)));
@@ -77,7 +76,7 @@ class WeekScheduleView
     onDateNow($element)
     {
         let dt = new Date();
-        this.$container.find("#dt_picker").val(this.utils.datePickerFormat(dt));
+        this.$container.find("#dt_picker").val(Utils.datePickerFormat(dt));
         // Maybe call onDateChange if not automatic
     }
 
@@ -86,7 +85,7 @@ class WeekScheduleView
         let dt_picker = this.$container.find("#dt_picker");
         let dt = new Date(dt_picker.val());
         dt.setDate(dt.getDate()-7);
-        dt_picker.val(this.utils.datePickerFormat(dt));
+        dt_picker.val(Utils.datePickerFormat(dt));
         // Maybe call onDateChange if not automatic
     }
 
@@ -95,7 +94,7 @@ class WeekScheduleView
         let dt_picker = this.$container.find("#dt_picker");
         let dt = new Date(dt_picker.val());
         dt.setDate(dt.getDate()+7);
-        dt_picker.val(this.utils.datePickerFormat(dt));
+        dt_picker.val(Utils.datePickerFormat(dt));
         // Maybe call onDateChange if not automatic
     }
 
