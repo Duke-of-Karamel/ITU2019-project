@@ -6,8 +6,15 @@ class Utils
         return `${dt.getDay()}.${dt.getMonth()}.${dt.getFullYear()} ${dt.getHours()}:${dt.getMinutes()}`;
     }
 
-    datePickerFormat(dt)
+    static datePickerFormat(dt)
     {
-        return dt.getFullYear() + "-" + dt.getMonth + "-" + dt.getDate;
+        let month = dt.getMonth();
+        if (month < 10) // Zero pad month
+            month = `0${month}`;
+        let day = dt.getDate();
+        if (day < 10) // Zero pad day
+            day = `0${day}`;
+
+        return dt.getFullYear() + "-" + month + "-" + day;
     }
 }
