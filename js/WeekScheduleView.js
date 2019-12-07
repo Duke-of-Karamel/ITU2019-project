@@ -104,7 +104,7 @@ class WeekScheduleView
     onRoomChange($element)
     {
         this.$room_selected = $($element).text();
-        this.update(this.$reservations);
+        this.update(this.$reservations, this.$rooms);
     }
 
     onTryReserve($element)
@@ -123,13 +123,14 @@ class WeekScheduleView
     update($reservations, rooms)
     {
         this.$reservations = $reservations;
+        this.$rooms = rooms;
         this.markReservations();
         this.makeRoomPicker(rooms);
     }
 
-    makeRoomPicker(rooms)
+    makeRoomPicker()
     {
-        rooms.forEach(room => {
+        this.$rooms.forEach(room => {
             this.$container.find("#room_picker").append("<option>" + room.room_shortcut + "</option>");
         });
     }
