@@ -16,14 +16,14 @@ class WeekScheduleView
             <div class="week-schedule-container">
                 <div class="dayroom-setup-cont">
                     <div class="dayroom-setup">
-                        <p>Datum: </p>
+                        <div>Datum: </div>
                         <button id="dt_shl">&lt;</button>
                         <input type="date" id="dt_picker" name="date">
                         <button id="dt_now">Now</button>
                         <button id="dt_shr">&gt;</button>
                     </div>
                     <div class="dayroom-setup">
-                        <p>Místnost: </p>
+                        <div>Místnost: </div>
                         <select id="room_picker" name="room">
                             <option value="0">ALL</option>
                             <!-- Here add more with query -->
