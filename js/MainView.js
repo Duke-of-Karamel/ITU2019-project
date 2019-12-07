@@ -18,8 +18,8 @@ class MainView
                     </div>
 
                     <div class="header-middle">
-                        <div data-view="roomScheduleView" class="menu-item btn-green menu-item-active">Místnosti</div>
-                        <div data-view="WeekScheduleView" class="menu-item btn-green">Týden</div>
+                        <div data-view="roomScheduleView" class="menu-item btn-green">Místnosti</div>
+                        <div data-view="WeekScheduleView" class="menu-item btn-green menu-item-active">Týden</div>
                         <div data-view="myResView" class="menu-item btn-green">Moje rezervace</div>
                     </div>
 
