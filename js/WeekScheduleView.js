@@ -5,7 +5,6 @@ class WeekScheduleView
         this.$container = null; // Is set later in build
         this.$controller = $controller;
         this.build();
-        this.update();
     }
 
     utils = new Utils();
