@@ -8,7 +8,7 @@ class Utils
 
     static datePickerFormat(dt)
     {
-        let month = dt.getMonth();
+        let month = dt.getMonth()+1;
         if (month < 10) // Zero pad month
             month = `0${month}`;
         let day = dt.getDate();
