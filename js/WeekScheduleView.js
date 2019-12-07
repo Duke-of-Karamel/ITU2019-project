@@ -1,10 +1,15 @@
 class WeekScheduleView
 {
-    constructor()
+    constructor($controller)
     {
         this.$container = null; // Is set later in build
+        this.$controller = $controller;
         this.build();
+        this.update();
     }
+
+    utils = new Utils();
+    $dt_selected = new Date();
 
     build()
     {
@@ -54,18 +59,56 @@ class WeekScheduleView
         `;
 
         this.$container = $(html);
+
+        this.$container.find("#dt_picker").val(this.utils.datePickerFormat(new Date()));
         
-        this.$container.find(".week_table.tCont").on("click", (event) => this.onReserve($(event.currentTarget))); // TODO onReserve()
-        this.$container.find("#dt_picker").on("change", (event) => this.onDateChange($(event.currentTarget))); // TODO onDateChange()
-        this.$container.find("#dt_shl").on("change",(event) => this.onDateShl($(event.currentTarget))); // TODO
-        this.$container.find("#dt_shr").on("change",(event) => this.onDateShr($(event.currentTarget))); // TODO
-        this.$container.find("#dt_now").on("change",(event) => this.onDateNow($(event.currentTarget))); // TODO
-        this.$container.find("#room_picker").on("change",(event) => this.onRoomChange($(event.currentTarget))); // TODO onRoomChange()
+        this.$container.find(".week_table.tCont").on("click", (event) => this.onReserve($(event.currentTarget)));
+        this.$container.find("#dt_picker").on("change", (event) => this.onDateChange($(event.currentTarget)));
+        this.$container.find("#dt_shl").on("click",(event) => this.onDateShl($(event.currentTarget)));
+        this.$container.find("#dt_shr").on("click",(event) => this.onDateShr($(event.currentTarget)));
+        this.$container.find("#dt_now").on("click",(event) => this.onDateNow($(event.currentTarget)));
+        this.$container.find("#room_picker").on("change",(event) => this.onRoomChange($(event.currentTarget)));
     }
 
     onDateChange($element)
     {
-        this.$dt_selected = new Date(this.$container.find("#dt_picker").val())
+        this.$dt_selected = new Date($($element).val());
+    }
+
+    onDateNow($element)
+    {
+        let dt = new Date();
+        this.$container.find("#dt_picker").val(this.utils.datePickerFormat(dt));
+        // Maybe call onDateChange if not automatic
+    }
+
+    onDateShl($element)
+    {
+        let dt_picker = this.$container.find("#dt_picker");
+        let dt = new Date(dt_picker.val());
+        dt.setDate(dt.getDate()-7);
+        dt_picker.val(this.utils.datePickerFormat(dt));
+        // Maybe call onDateChange if not automatic
+    }
+
+    onDateShr($element)
+    {
+        let dt_picker = this.$container.find("#dt_picker");
+        let dt = new Date(dt_picker.val());
+        dt.setDate(dt.getDate()+7);
+        dt_picker.val(this.utils.datePickerFormat(dt));
+        // Maybe call onDateChange if not automatic
+    }
+
+    onRoomChange()
+    {
+        //TODO
+    }
+
+    onReserve($element)
+    {
+        // TODO
+        $($element).css("color", "green");
     }
 
     update($json)
@@ -78,9 +121,25 @@ class WeekScheduleView
     markReservations()
     {
         this.$data["reservations"].forEach($element => {
-            if($element.dt_from > this.$dt_selected.getTime*1000/*ms*/)/*604800 tyden v sekundach*/ //TODO $dt_selected
-            {
+            let date_from = new Date($element.dt_from*1000/*ms*/);
 
+            if($element.dt_from > this.$dt_selected.getTime/1000/*ms*/ && $element.dt_from < this.$dt_selected.getTime/1000/*ms*/ + 604800/*tyden v sekundach*/) //TODO actually round to weeks
+            {
+                let seconds = $element.dt_to - $element.dt_from;
+                let hours = seconds/3600 + (seconds%3600 > 0);
+                let css = null;
+                if ($element.user == this.$controller.user)//FIXME
+                {
+                    css = "green"
+                }
+                else//FIXME
+                {
+                    css = "red"
+                }
+
+                for(; hours > 0; hours++){
+                    this.markReservation(css,date_from.getDay,date_from.getHours+hours+4/*FIXME my schedule starts at 4:00*/)
+                }
             }
         });
     }
