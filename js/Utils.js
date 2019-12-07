@@ -8,6 +8,6 @@ class Utils
 
     datePickerFormat(dt)
     {
-        return dt.getFullYear() + "-" + dt.getMonth + "-" + dt.getDay; 
+        return dt.getFullYear() + "-" + dt.getMonth + "-" + dt.getDate;
     }
 }
