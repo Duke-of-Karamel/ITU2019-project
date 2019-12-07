@@ -14,17 +14,20 @@ class WeekScheduleView
     {
         let html = `
             <div>
-                <div>
+                <span>
                     <p>Datum: </p>
+                    <button id="dt_shl">&lt;</button>
                     <input type="date" id="dt_picker" name="date">
-                </div>
-                <div>
+                    <button id="dt_now">Now</button>
+                    <button id="dt_shr">&gt;</button>
+                </span>
+                <span>
                     <p>Místnost: </p>
-                    <select id="room_picker" name="room" onchange="">
+                    <select id="room_picker" name="room">
                         <option value="0">ALL</option>
                         <!-- Here add more with query -->
                     </select>
-                </div>
+                </span>
                 <table class="week_table">
                     <tr>
                         <th class="tHead">Čas</th> <th class="tHead">4:00-:59</th> <th class="tHead">5:00-:59</th> <th class="tHead">6:00-:59</th> <th class="tHead">7:00-:59</th> <th class="tHead">8:00-:59</th> <th class="tHead">9:00-:59</th> <th class="tHead">10:00-:59</th> <th class="tHead">11:00-:59</th> <th class="tHead">12:00-:59</th> <th class="tHead">13:00-:59</th> <th class="tHead">14:00-:59</th> <th class="tHead">15:00-:59</th> <th class="tHead">16:00-:59</th> <th class="tHead">17:00-:59</th> <th class="tHead">18:00-:59</th> <th class="tHead">19:00-:59</th> <th class="tHead">20:00-:59</th> <th class="tHead">21:00-:59</th> <th class="tHead">22:00-:59</th>
@@ -58,6 +61,16 @@ class WeekScheduleView
 
         
         this.$container.find(".week_table.tCont").on("click",onReserve()); // TODO onReserve()
+        this.$container.find("#dt_picker").on("change",onDateChange()); // TODO onDateChange()
+        this.$container.find("#dt_shl").on("change",onDateShl()); // TODO
+        this.$container.find("#dt_shr").on("change",onDateShr()); // TODO
+        this.$container.find("#dt_now").on("change",onDateNow()); // TODO
+        this.$container.find("#room_picker").on("change",onRoomChange()); // TODO onRoomChange()
+    }
+
+    onDateChange()
+    {
+        this.$dt_selected = new Date(this.$container.find("#dt_picker").val())
     }
 
     update($json)
@@ -69,7 +82,12 @@ class WeekScheduleView
 
     markReservations()
     {
-        this.$data
+        this.$data["reservations"].forEach($element => {
+            if($element.dt_from > this.$dt_selected.getTime*1000/*ms*/)/*604800 tyden v sekundach*/ //TODO $dt_selected
+            {
+
+            }
+        });
     }
 
     markReservation($css_class, $row, $collumn)
