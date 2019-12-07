@@ -63,7 +63,7 @@ class WeekScheduleView
 
         this.$container.find("#dt_picker").val(Utils.datePickerFormat(new Date()));
         
-        this.$container.find(".week_table.tCont").on("click", (event) => this.onTryReserve($(event.currentTarget)));
+        this.$container.find(".week_table .tCont").on("click", (event) => this.onTryReserve($(event.currentTarget)));
         this.$container.find("#dt_picker").on("change", (event) => this.onDateChange($(event.currentTarget)));
         this.$container.find("#dt_shl").on("click",(event) => this.onDateShl($(event.currentTarget)));
         this.$container.find("#dt_shr").on("click",(event) => this.onDateShr($(event.currentTarget)));
