@@ -129,7 +129,7 @@ class WeekScheduleView
     makeRoomPicker(rooms)
     {
         rooms.forEach(room => {
-            this.$container.find("#room_picker").append("<option>" + room + "</option>");
+            this.$container.find("#room_picker").append("<option>" + room.room_shortcut + "</option>");
         });
     }
 
