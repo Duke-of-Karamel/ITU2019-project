@@ -51,7 +51,6 @@
             return;
         
         this.currentView = nextView;
-        nextView.
     }
  }
 
