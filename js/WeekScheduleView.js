@@ -24,7 +24,7 @@ class WeekScheduleView
                 <span>
                     <p>Místnost: </p>
                     <select id="room_picker" name="room">
-                        <option value="0">ALL</option>
+                        <option selected>ALL</option>
                         <!-- Here add more with query -->
                     </select>
                 </span>
@@ -61,7 +61,7 @@ class WeekScheduleView
 
         this.$container.find("#dt_picker").val(Utils.datePickerFormat(new Date()));
         
-        this.$container.find(".week_table.tCont").on("click", (event) => this.onReserve($(event.currentTarget)));
+        this.$container.find(".week_table.tCont").on("click", (event) => this.onTryReserve($(event.currentTarget)));
         this.$container.find("#dt_picker").on("change", (event) => this.onDateChange($(event.currentTarget)));
         this.$container.find("#dt_shl").on("click",(event) => this.onDateShl($(event.currentTarget)));
         this.$container.find("#dt_shr").on("click",(event) => this.onDateShr($(event.currentTarget)));
@@ -101,20 +101,34 @@ class WeekScheduleView
 
     onRoomChange($element)
     {
-        this.$room_selected = $($element).val();
+        this.$room_selected = $($element).text();
         this.update(this.$reservations);
     }
 
-    onReserve($element)
+    onTryReserve($element)
     {
-        // TODO
-        $($element).css("color", "green");
+        if (this.$room_selected == "ALL")
+        {
+            this.$controller.plsChangeToDayScheduleByLadislav // TODO
+        }
+        else
+        {
+            $($element).css("color", "green"); // TODO
+        }
     }
 
-    update($reservations)
+    update($reservations, rooms)
     {
         this.$reservations = $reservations;
         this.markReservations();
+        this.makeRoomPicker(rooms);
+    }
+
+    makeRoomPicker(rooms)
+    {
+        rooms.forEach(room => {
+            this.$container.find("#room_picker").append("<option>" + room + "</option>");
+        });
     }
 
 
@@ -125,12 +139,12 @@ class WeekScheduleView
             {
                 let date_from = new Date($element.dt_from*1000/*ms*/);
 
-                if(this.isInWeek(date_from,this.$dt_selected))
+                if(this.isWithinWeek(date_from,this.$dt_selected))
                 {
                     let seconds = $element.dt_to - $element.dt_from;
                     let hours = seconds/3600 + (seconds%3600 > 0);
                     let css = null;
-                    if ($element.user == this.$controller.user)//FIXME
+                    if ($element.user == this.$controller.getCurrentUser())
                     {
                         css = "green"
                     }
@@ -152,11 +166,11 @@ class WeekScheduleView
         //FIXME
     }
 
-    static isInWeek(dt_questionable, dt_week)
-    { /*604800 tyden v sekundach*/
+    static isWithinWeek(dt_questionable, dt_week)
+    { /*604800 week in seconds*/
         let year = (dt_questionable.getFullYear() == dt_week.getFullYear());
         let month = (dt_questionable.getMonth() == dt_week.getMonth());
-        let day = (dt_questionable.getDate() == dt_week.getDate());
-        return 
+        let week = (dt_questionable.getDate()-dt_questionable.getDay() == dt_week.getDate()-dt_week.getDay());
+        return year && month && week;
     }
 }
