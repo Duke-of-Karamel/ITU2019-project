@@ -143,7 +143,7 @@ class WeekScheduleView
                 return;
             let $first = $selectedBois.first();
             let $last = $selectedBois.last();
-            t
+
             let lowestCol = 498489;
             
 
