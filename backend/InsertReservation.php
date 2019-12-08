@@ -19,4 +19,7 @@ $sql->execute();
 
 
 $conn->close();
+
+header("Access-Control-Allow-Origin: *");
+
 ?>

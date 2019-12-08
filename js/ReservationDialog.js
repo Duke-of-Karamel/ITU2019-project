@@ -81,10 +81,18 @@ class ReservationDialog
 
     onReserveClick()
     {
+        let fromval = this.$dialog.find(".res-dialog-inp-from").val();
+        let toval   = this.$dialog.find(".res-dialog-inp-to").val();
+
         let data = {
-            
+            description: this.$dialog.find("textarea").text(),
+            h_from:      parseInt(fromval.split(":")[0]),
+            m_from:      parseInt(fromval.split(":")[1]),
+            h_to:        parseInt(toval.split(":")[0]),
+            m_to:        parseInt(toval.split(":")[1])
         }
-        this.view.onSelectionConfirm(this.$dialog);
+
+        this.view.onSelectionConfirm(this.$dialog, data);
     }
 
     onCloseClick()

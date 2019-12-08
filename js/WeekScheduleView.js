@@ -6,6 +6,7 @@ class WeekScheduleView
         this.$controller = $controller;
         this.rooms = null;
         this.schemaView = new SchemaView();
+        this.currentDate = null;
         this.reservationDialog = null;
         this.build();
     }
@@ -159,6 +160,7 @@ class WeekScheduleView
             this.reservationDialog = new ReservationDialog(this, $("body"));
             this.setupDialogPosition($element, this.reservationDialog.$dialog);
             console.log($element.offset());
+            this.currentDate = new Date(date_select);
         }
         else 
         {
@@ -196,6 +198,8 @@ class WeekScheduleView
                 this.reservationDialog.onTimeRangeRefresh(date_dialog, date_select)
                 this.markReservationRange(date_dialog,date_select,"selected-cell");
             }
+            this.currentDate = new Date(date_select);
+
             // TODO
             
 
@@ -352,9 +356,27 @@ class WeekScheduleView
 
     }
 
-    onSelectionConfirm($dialog)
+    onSelectionConfirm($dialog, data)
     {
         // TODO - vytahnout data z dialogu
+        let from_dt = new Date(this.currentDate);
+        let to_dt   = new Date(this.currentDate);
+        
+        from_dt.setMinutes(data.m_from);
+        to_dt.setMinutes(data.m_to);
+        from_dt.setHours(data.h_from);
+        to_dt.setHours(data.h_to);
+
+        data.dt_from = Math.round(from_dt.getTime() / 1000);
+        data.dt_to = Math.round(to_dt.getTime() / 1000);
+
+        let room_sc = this.$container.find("select option:selected").text();
+        let room = this.rooms.find((val) => val.room_shortcut == room_sc );
+
+        data.room_id = parseInt(room.room_id);
+
+        this.$controller.createReservation(data);
+        console.log(data);
     }
 
     onSchemaShow()
