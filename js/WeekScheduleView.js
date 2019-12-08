@@ -246,7 +246,7 @@ class WeekScheduleView
     markReservation($css_class, $row, $collumn,from_minu, to_minu)
     {
         let css_percent = "style=\"margin-left:" + from_minu/60*100 + "%;width:" + to_minu/60*100 + "%;\"";
-        this.$container.find(`.week_table .tCont[data-row='${$row}'][data-col='${$collumn}']`).append(`<div ${css_percent}></div>`).addClass($css_class);
+        this.$container.find(`.week_table .tCont[data-row='${$row}'][data-col='${$collumn}']`).append(`<div class="${$css_class}" ${css_percent}></div>`);
     }
 
     isWithinWeek(dt_questionable, dt_week)
