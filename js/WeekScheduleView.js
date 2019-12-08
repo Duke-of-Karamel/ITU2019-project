@@ -134,7 +134,7 @@ class WeekScheduleView
 
     onTryReserve($element)
     {
-        var row = parseInt($element.data("row"));
+        let row = parseInt($element.data("row"));
         let col = parseInt($element.data("col"));
         console.log(`Clicked in table pos [${row}] [${col}]`);
         // Did we click to past?
@@ -163,7 +163,6 @@ class WeekScheduleView
             let date_select = new Date(this.$dt_selected.getTime());
             let date = this.$dt_selected.getDate();
             let monday_zero = ((this.$dt_selected.getDay()+6)%7);
-            let row = $(element).data("row");
             let week_start = date - monday_zero;
             let date_shift = week_start + (row - 1)
             date_select.setDate(date_shift);
