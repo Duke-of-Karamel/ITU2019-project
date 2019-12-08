@@ -48,5 +48,15 @@ class SchemaView
 
         this.$pointer.css("left", (contWidth * ratioX) + "px").css("top", (contHeight * ratioY) + "px");
     }
+
+    show()
+    {
+
+    }
+
+    hide()
+    {
+       // this.$container.hide();      
+    }
 }
 

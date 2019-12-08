@@ -4,7 +4,9 @@ class WeekScheduleView
     {
         this.$container = null; // Is set later in build
         this.$controller = $controller;
+        this.rooms = null;
         this.isSelecting = false;
+        this.schemaView = new SchemaView();
         this.build();
     }
 
@@ -28,6 +30,7 @@ class WeekScheduleView
                         <select id="room_picker" name="room">
                             <!-- Here add more with query -->
                         </select>
+                        <a class="show-schema" href="javascript:true">Ukázat</a>
                     </div>
                 </div>
                 <table class="week_table">
@@ -69,6 +72,11 @@ class WeekScheduleView
         this.$container.find("#dt_shr").on("click",(event) => this.onDateShr($(event.currentTarget)));
         this.$container.find("#dt_now").on("click",(event) => this.onDateNow($(event.currentTarget)));
         this.$container.find("#room_picker").on("change",(event) => this.onRoomChange($(event.currentTarget)));
+
+        this.$container.append(this.schemaView.$container);
+        this.$container.find(".show-schema").on("mouseover", () =>this.onSchemaShow());
+        this.$container.find(".show-schema").on("mouseout", () =>this.onSchemaHide());
+
     }
 
     onDateChange($element)
@@ -168,6 +176,7 @@ class WeekScheduleView
     update($reservations, rooms)
     {
         this.$reservations = $reservations;
+        this.rooms = rooms;
         this.markReservations();
         this.makeRoomPicker(rooms);
         this.markDt();
@@ -281,6 +290,24 @@ class WeekScheduleView
     onSelectionConfirm($dialog)
     {
         // TODO - vytahnout data z dialogu
+    }
+
+    onSchemaShow()
+    {
+        console.log("Showing schema.");
+
+        let room_sc = this.$container.find("select option:selected").text();
+        let room = this.rooms.find((val) => val.room_shortcut == room_sc );
+
+        this.schemaView.update(room);
+        this.schemaView.$container.fadeIn(500);
+    }
+
+    onSchemaHide()
+    {
+        console.log("Hiding schema.");
+
+        this.schemaView.hide();
     }
 
 
