@@ -197,7 +197,7 @@ class WeekScheduleView
                 date_dialog.setHours(this.$container.find(".dialog-cell").parent().data("col") + 3);
                 this.reservationDialog.onTimeRangeRefresh(date_dialog, date_select)
                 let from = new Date(date_dialog.getTime());
-                from.setHours(from.getHours()-1);
+                from.setHours(from.getHours()+1);
                 this.markReservationRange(from,date_select,"selected-cell");
             }
             // TODO
