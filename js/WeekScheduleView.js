@@ -76,6 +76,7 @@ class WeekScheduleView
         console.log("Date changed");
         this.$dt_selected = new Date($($element).val());
         this.markDt();
+        this.markReservations();
     }
 
     onDateNow($element)
@@ -85,6 +86,7 @@ class WeekScheduleView
         console.log("Date changed to now");
         this.$dt_selected = new Date(this.$container.find("#dt_picker").val());
         this.markDt();
+        this.markReservations();
     }
 
     onDateShl($element)
@@ -96,6 +98,7 @@ class WeekScheduleView
         console.log("Date changed left");
         this.$dt_selected = new Date(this.$container.find("#dt_picker").val());
         this.markDt();
+        this.markReservations();
     }
 
     onDateShr($element)
@@ -107,6 +110,7 @@ class WeekScheduleView
         console.log("Date changed right");
         this.$dt_selected = new Date(this.$container.find("#dt_picker").val());
         this.markDt();
+        this.markReservations();
     }
 
     onRoomChange($element)
