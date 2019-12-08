@@ -84,6 +84,7 @@ class WeekScheduleView
         console.log("Date changed");
         this.$dt_selected = new Date($($element).val());
         this.markDt();
+        this.markReservations();
     }
 
     onDateNow($element)
@@ -93,6 +94,7 @@ class WeekScheduleView
         console.log("Date changed to now");
         this.$dt_selected = new Date(this.$container.find("#dt_picker").val());
         this.markDt();
+        this.markReservations();
     }
 
     onDateShl($element)
@@ -104,6 +106,7 @@ class WeekScheduleView
         console.log("Date changed left");
         this.$dt_selected = new Date(this.$container.find("#dt_picker").val());
         this.markDt();
+        this.markReservations();
     }
 
     onDateShr($element)
@@ -115,11 +118,12 @@ class WeekScheduleView
         console.log("Date changed right");
         this.$dt_selected = new Date(this.$container.find("#dt_picker").val());
         this.markDt();
+        this.markReservations();
     }
 
     onRoomChange($element)
     {
-        this.$room_selected = $($element).text();
+        this.$room_selected = $($element).find("option:selected").text();
         this.markReservations();
     }
 
@@ -145,13 +149,13 @@ class WeekScheduleView
         }
         else 
         {
+            let $selectedBois = this.$container.find(".selected-cell");
             let selectingRow = parseInt($selectedBois.data("row"));
             if (row != selectingRow)
                 return;
-            let $selectedBois = this.$container.find(".selected-cell");
             let $first = $selectedBois.first();
             let $last = $selectedBois.last();
-            t
+
             let lowestCol = 498489;
             
 
@@ -233,7 +237,7 @@ class WeekScheduleView
 
     markReservationRange(date_from, date_to, markClass)
     {
-        let hours = date_from.getHours() - date_to.getHours() + (date_to.getMinutes() > 0);
+        let hours = date_to.getHours() - date_from.getHours() + (date_to.getMinutes() > 0);
 
         for(let hrs = hours - 1; hrs >= 0; hrs--){
             let from = 0;
@@ -244,14 +248,14 @@ class WeekScheduleView
             if (hrs == hours-1){
                 to = date_to.getMinutes();
             }
-            this.markReservation(markClass,(date_from.getDay()+6)%7+1,date_from.getHours()+hrs-4, from, to);
+            this.markReservation(markClass,(date_from.getDay()+6)%7+1,date_from.getHours()+hrs-3, from, to);
         }
     }
 
     markReservation($css_class, $row, $collumn,from_minu, to_minu)
     {
-        let css_percent = "style=\"margin-left:" + from_minu/60*100 + "%;width:" + to_minu/60*100 + "%;\"";
-        this.$container.find(`.week_table .tCont[data-row='${$row}'][data-col='${$collumn}']`).append(`<div ${css_percent}></div>`).addClass($css_class);
+        let css_percent = "style=\"margin-left:" + from_minu/60*100 + "%;width:" + to_minu/60*100 + "%;height:100%;\"";
+        this.$container.find(`.week_table .tCont[data-row='${$row}'][data-col='${$collumn}']`).append(`<div class="${$css_class}" ${css_percent}></div>`);
     }
 
     isWithinWeek(dt_questionable, dt_week)
