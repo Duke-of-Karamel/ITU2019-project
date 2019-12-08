@@ -222,7 +222,7 @@ class WeekScheduleView
     {
         let past_week = dt_week.getTime() > this.$dt_selected.getTime();
         let past_day  = (dt_now.getDay()+6)%7+1 > $(element).data("row");
-        let current_week = ;
+        let current_week = 6;
         let past_hour = (((dt_now.getDay()+6)%7+1) == $(element).data("row") && dt_now.getHours > $(element).data("col")+3);
         return past_week || (past_day && current_week) || (past_hour && current_week);
     }
