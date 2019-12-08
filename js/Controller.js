@@ -87,6 +87,11 @@
         this.currentView.$container.fadeIn(300);
     }
 
+    createReservation(data)
+    {
+        
+    }
+
     getCurrentUser()
     {
         return this.loggedUser;

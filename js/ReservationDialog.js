@@ -81,6 +81,9 @@ class ReservationDialog
 
     onReserveClick()
     {
+        let data = {
+            
+        }
         this.view.onSelectionConfirm(this.$dialog);
     }
 

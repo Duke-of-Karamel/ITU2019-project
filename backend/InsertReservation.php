@@ -11,7 +11,7 @@ require 'db_connect.php';
 try
 {
 $sql = $conn->prepare("INSERT INTO Reservation (user_id, room_id, description, dt_created, dt_from, dt_to) VALUES (?, ?, ?, ?, ?, ?)");
-$sql->bind_param('iissss', $_POST['user_id'], $_POST['room_id'], $_POST['description'], $_POST['dt_created'], $_POST['dt_from'], $_POST['dt_to']);
+$sql->bind_param('iissss', $_POST['user_id'], $_POST['room_id'], $_POST['description'], time(), $_POST['dt_from'], $_POST['dt_to']);
 $sql->execute();
 } catch(mysqli_sql_exception $e) {
     die(500);
