@@ -12,7 +12,7 @@ class WeekScheduleView
     }
 
     $dt_selected = new Date();
-    $room_selected = "";
+    $room_selected = null;
 
     build()
     {
@@ -281,7 +281,11 @@ class WeekScheduleView
         rooms.forEach(room => {
             this.$container.find("#room_picker").append("<option>" + room.room_shortcut + "</option>");
         });
-        this.$room_selected = this.$container.find("#room_picker").find("option:selected").text();
+        if (this.$room_selected == null){
+            this.$room_selected = this.$container.find("#room_picker").find("option:selected").text();
+        } else {
+            this.$container.find("#room_picker").val(this.$room_selected);
+        }
     }
 
 
