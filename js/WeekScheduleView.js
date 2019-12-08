@@ -11,7 +11,7 @@ class WeekScheduleView
     }
 
     $dt_selected = new Date();
-    $room_selected = "ALL";
+    $room_selected = "";
 
     build()
     {
@@ -227,8 +227,8 @@ class WeekScheduleView
     {
         this.$reservations = $reservations;
         this.rooms = rooms;
-        this.markReservations();
         this.makeRoomPicker(rooms);
+        this.markReservations();
         this.markDt();
     }
 
@@ -265,10 +265,11 @@ class WeekScheduleView
     makeRoomPicker(rooms)
     {
         this.$container.find("#room_picker").empty();
-        this.$container.find("#room_picker").append("<option selected>ALL</option>");
+        this.$container.find("#room_picker").append("<!--<option selected>ALL</option>-->");
         rooms.forEach(room => {
             this.$container.find("#room_picker").append("<option>" + room.room_shortcut + "</option>");
         });
+        this.$room_selected = $($element).find("option:selected").text();
     }
 
 
