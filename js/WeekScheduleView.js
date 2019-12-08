@@ -136,7 +136,7 @@ class WeekScheduleView
             let selectingRow = parseInt($selectedBois.data("row"));
             if (row != selectingRow)
                 return;
-            let lowestCol = 
+            let lowestCol = 498489;
             
 
 
