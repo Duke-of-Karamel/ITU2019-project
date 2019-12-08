@@ -72,6 +72,7 @@ class WeekScheduleView
 
     onDateChange($element)
     {
+        console.log("Date changed");
         this.$dt_selected = new Date($($element).val());
         this.markDt();
     }
