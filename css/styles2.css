@@ -9,9 +9,25 @@
 
 .other-user-mark {
     background-color: red !important;
+}
 
+.selected-cell .this-user-mark .other-user-mark {
+    height: 40px;
 }
 
 .cell-past {
     background-color: lightgray !important;
+}
+
+.schema-container {
+    position: absolute;
+    top: 400px;
+    width: 70%;
+    background-color: white;
+    border-radius: 5px;
+
+}
+
+.week_table tr {
+    height: 40px;
 }
