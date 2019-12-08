@@ -205,9 +205,14 @@ class WeekScheduleView
             }
         })
 
-        let day_date = new Date();
+        let day_date = new Date(this.$dt_selected.getTime());
         this.$container.find(".week_table .tHead .tDate").each((index, element) => {
-            day_date.setDate(this.$dt_selected.getDate()-((this.$dt_selected.getDay()+6)%7)+$(element).data("row")-1);
+            let date = this.$dt_selected.getDate();
+            let monday_zero = ((this.$dt_selected.getDay()+6)%7);
+            let row = $(element).data("row");
+            let week_start = date - monday_zero;
+            let date_shift = week_start + (row - 1)
+            day_date.setDate(date_shift);
             $(element).empty();
             $(element).append(`${day_date.getDate()}.${day_date.getMonth()+1}.`);
         })
@@ -249,7 +254,7 @@ class WeekScheduleView
 
     markReservationRange(date_from, date_to, markClass)
     {
-        let hours = date_to.getHours() - date_from.getHours() + (date_to.getMinutes() > 0);
+        let hours = date_to.getHours() - date_from.getHours() + (date_to.getMinutes()-date_from.getMinutes() > 0);
 
         for(let hrs = hours - 1; hrs >= 0; hrs--){
             let from = 0;
@@ -259,7 +264,9 @@ class WeekScheduleView
             }
             if (hrs == hours-1){
                 to = date_to.getMinutes();
-                to = to? to : 60;
+            }
+            if (hours == 1){
+                to = to-from
             }
             this.markReservation(markClass,(date_from.getDay()+6)%7+1,date_from.getHours()+hrs-3, from, to);
         }
