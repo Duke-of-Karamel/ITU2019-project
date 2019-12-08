@@ -143,6 +143,8 @@ class WeekScheduleView
         this.$container.find(".week_table .tCont").each((index, element) => {
             if(dt_week.getTime() > this.$dt_selected.getTime() || (dt_now.getDay()+6)%7+1 > $(element).data("row") || (((dt_now.getDay()+6)%7+1) == $(element).data("row") && dt_now.getHours > $(element).data("col")+3)){
                 $(element).css("background-color","grey") //FIXME addClass()
+            } else {
+                $(element).css("background-color","white") //FIXME addClass()
             }
         })
 
