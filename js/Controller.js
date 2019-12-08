@@ -20,13 +20,15 @@
         let $mainSection        = this.mainView.$container.find("section");
         this.myResView          = new MyReservationsView(this);
         this.myWeekScheduleView = new WeekScheduleView(this);
-        this.roomScheduleView   = new RoomScheduleView(this, );
+        this.roomScheduleView   = new RoomScheduleView(this);
 
         this.myResView.$container.hide();
         this.myWeekScheduleView.$container.hide();
+        this.roomScheduleView.$container.hide();
 
         $mainSection.append(this.myWeekScheduleView.$container);
         $mainSection.append(this.myResView.$container);
+        $mainSection.append(this.roomScheduleView.$container);
 
         this.refreshData();
 
@@ -40,7 +42,7 @@
             let transformedData = this.resDataTransform(data);
             this.myResView.update(transformedData);
             this.myWeekScheduleView.update(transformedData, data.rooms);
-            
+            this.roomScheduleView.update(transformedData, data.rooms);      
         });
     }
 
@@ -82,7 +84,9 @@
             nextView = this.myResView;
         else if (viewName == "WeekScheduleView")
             nextView = this.myWeekScheduleView;
-        else
+        else if (viewName == "roomScheduleView")
+            nextView = this.roomScheduleView;
+        else 
             return;
         
         this.currentView = nextView;
