@@ -134,7 +134,7 @@ class WeekScheduleView
 
     onTryReserve($element)
     {
-        let row = parseInt($element.data("row"));
+        var row = parseInt($element.data("row"));
         let col = parseInt($element.data("col"));
         console.log(`Clicked in table pos [${row}] [${col}]`);
         // Did we click to past?
@@ -152,7 +152,7 @@ class WeekScheduleView
         else 
         {
             let $selectedBois = this.$container.find(".selected-cell");
-            let selectingRow = parseInt($selectedBois.data("row"));
+            let selectingRow = parseInt($selectedBois.parent().data("row"));
             if (row != selectingRow)
                 return;
             let $first = $selectedBois.first();

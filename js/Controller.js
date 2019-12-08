@@ -10,7 +10,8 @@
         this.currentView    = null;
         this.loggedUser     = "test_user";
         this.getUrl         = "https://vevesoft.net/ituproject/GetReservations.php";
-        this.removeUrl      = "https://vevesoft.net/ituproject/RemoveReservation.php"
+        this.removeUrl      = "https://vevesoft.net/ituproject/RemoveReservation.php";
+        this.createUrl      = "https://vevesoft.net/ituproject/InsertReservation.php";
 
         // Make sure the body is clean
         $("body").empty();
@@ -19,6 +20,7 @@
         let $mainSection        = this.mainView.$container.find("section");
         this.myResView          = new MyReservationsView(this);
         this.myWeekScheduleView = new WeekScheduleView(this);
+        this.roomScheduleView   = new RoomScheduleView(this, );
 
         this.myResView.$container.hide();
         this.myWeekScheduleView.$container.hide();
@@ -89,7 +91,15 @@
 
     createReservation(data)
     {
-        
+        data.user_id = this.getCurrentUser();
+
+        $.ajax({
+            url: this.createUrl,
+            data: data,
+            method: "POST"
+        }).done(() => {
+            this.refreshData();
+        });
     }
 
     getCurrentUser()
