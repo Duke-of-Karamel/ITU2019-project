@@ -11,7 +11,7 @@
     background-color: red !important;
 }
 
-.selected-cell .this-user-mark .other-user-mark {
+.selected-cell, .this-user-mark, .other-user-mark {
     height: 40px;
 }
 
