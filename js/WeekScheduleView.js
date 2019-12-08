@@ -189,12 +189,16 @@ class WeekScheduleView
                 date_select.setHours($($element).data("col") + 3);
                 date_dialog.setHours(this.$container.find(".dialog-cell").parent().data("col") + 4);
                 this.reservationDialog.onTimeRangeRefresh(date_select, date_dialog)
-                this.markReservationRange(date_select,date_dialog,"selected-cell");
+                let to = new Date(date_dialog.getTime());
+                to.setHours(to.getHours()-1);
+                this.markReservationRange(date_select,to,"selected-cell");
             } else {
                 date_select.setHours($($element).data("col") + 4);
                 date_dialog.setHours(this.$container.find(".dialog-cell").parent().data("col") + 3);
                 this.reservationDialog.onTimeRangeRefresh(date_dialog, date_select)
-                this.markReservationRange(date_dialog,date_select,"selected-cell");
+                let from = new Date(date_dialog.getTime());
+                from.setHours(from.getHours()-1);
+                this.markReservationRange(from,date_select,"selected-cell");
             }
             // TODO
             
