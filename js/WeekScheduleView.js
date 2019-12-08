@@ -200,7 +200,12 @@ class WeekScheduleView
 
         let day_date = new Date();
         this.$container.find(".week_table .tHead .tDate").each((index, element) => {
-            day_date.setDate(this.$dt_selected.getDate()-((this.$dt_selected.getDay()+6)%7)+$(element).data("row")-1);
+            let date = this.$dt_selected.getDate();
+            let monday_zero = ((this.$dt_selected.getDay()+6)%7);
+            let row = $(element).data("row");
+            let week_start = date - monday_zero;
+            let date_shift = week_start + (row - 1)
+            day_date.setDate(date_shift);
             $(element).empty();
             $(element).append(`${day_date.getDate()}.${day_date.getMonth()+1}.`);
         })
