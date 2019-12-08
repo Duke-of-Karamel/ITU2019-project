@@ -172,7 +172,7 @@ class WeekScheduleView
 
             if (date_dialog.getTime() > date_select.getTime())
             {
-                date_select.setHours($($element).data("col") + 3);
+                date_select.setHours($($element).data("col") + 2);
                 date_dialog.setHours(this.$container.find(".dialog-cell").parent().data("col") + 4);
                 this.reservationDialog.onTimeRangeRefresh(date_select, date_dialog)
                 this.markReservationRange(date_select,date_dialog,"selected-cell");
