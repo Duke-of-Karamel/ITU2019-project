@@ -72,6 +72,7 @@ class WeekScheduleView
 
     onDateChange($element)
     {
+        console.log("Date changed");
         this.$dt_selected = new Date($($element).val());
         this.markDt();
     }
@@ -80,7 +81,9 @@ class WeekScheduleView
     {
         let dt = new Date();
         this.$container.find("#dt_picker").val(Utils.datePickerFormat(dt));
-        // Maybe call onDateChange if not automatic
+        console.log("Date changed to now");
+        this.$dt_selected = new Date(this.$container.find("#dt_picker").val());
+        this.markDt();
     }
 
     onDateShl($element)
@@ -89,7 +92,9 @@ class WeekScheduleView
         let dt = new Date(dt_picker.val());
         dt.setDate(dt.getDate()-7);
         dt_picker.val(Utils.datePickerFormat(dt));
-        // Maybe call onDateChange if not automatic
+        console.log("Date changed left");
+        this.$dt_selected = new Date(this.$container.find("#dt_picker").val());
+        this.markDt();
     }
 
     onDateShr($element)
@@ -98,7 +103,9 @@ class WeekScheduleView
         let dt = new Date(dt_picker.val());
         dt.setDate(dt.getDate()+7);
         dt_picker.val(Utils.datePickerFormat(dt));
-        // Maybe call onDateChange if not automatic
+        console.log("Date changed right");
+        this.$dt_selected = new Date(this.$container.find("#dt_picker").val());
+        this.markDt();
     }
 
     onRoomChange($element)
@@ -131,11 +138,13 @@ class WeekScheduleView
     markDt()
     {
         let dt_now = new Date();
-        // let dt_week = new Date();
-        // dt_week.setDate(dt_week.getDate()-(dt_week.getDay())+6)%7;
+        let dt_week = new Date();
+        dt_week.setDate(dt_week.getDate()-(dt_week.getDay()+6)%7);
         this.$container.find(".week_table .tCont").each((index, element) => {
-            if(!this.isWithinWeek(dt_now,this.$dt_selected) || (dt_now.getDay()+6)%7+1 > $(element).data("row") || ((dt_now.getDay()+6)%7+1 == $(element).data("row") && dt_now.getHours > $(element).data("col")+3)){
+            if(dt_week.getTime() > this.$dt_selected.getTime() || (dt_now.getDay()+6)%7+1 > $(element).data("row") || (((dt_now.getDay()+6)%7+1) == $(element).data("row") && dt_now.getHours > $(element).data("col")+3)){
                 $(element).css("background-color","grey") //FIXME addClass()
+            } else {
+                $(element).css("background-color","white") //FIXME addClass()
             }
         })
 
