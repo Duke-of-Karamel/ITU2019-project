@@ -144,6 +144,7 @@ class WeekScheduleView
         if (this.reservationDialog == null)
         {
             this.markReservation("selected-cell", row, col, 0, 60);
+            this.$container.find(".selected-cell").addClass("dialog-cell");
             this.reservationDialog = new ReservationDialog(this, $("body"));
             this.setupDialogPosition($element, this.reservationDialog.$dialog);
             console.log($element.offset());
@@ -157,7 +158,30 @@ class WeekScheduleView
             let $first = $selectedBois.first();
             let $last = $selectedBois.last();
 
-            let lowestCol = 498489;
+            this.$container.find(".selected-cell").not(".dialog-cell").remove();
+
+            let date_select = new Date(this.$dt_selected.getTime());
+            let date = this.$dt_selected.getDate();
+            let monday_zero = ((this.$dt_selected.getDay()+6)%7);
+            let row = $(element).data("row");
+            let week_start = date - monday_zero;
+            let date_shift = week_start + (row - 1)
+            date_select.setDate(date_shift);
+
+            let date_dialog = new Date(date_select.getTime());
+
+            date_select.setHours($($element).data("col") + 3);
+            date_dialog.setHours(this.$container.find(".dialog-cell").data("col") + 3);
+
+            if (date_dialog.getTime() > date_select.getTime())
+            {
+                this.reservationDialog.onTimeRangeRefresh(date_select, date_dialog)
+                this.markReservationRange(date_select,date_dialog,"selected-cell");
+            } else {
+                this.reservationDialog.onTimeRangeRefresh(date_dialog, date_select)
+                this.markReservationRange(date_dialog,date_select,"selected-cell");
+            }
+            // TODO
             
 
 
@@ -216,7 +240,6 @@ class WeekScheduleView
             $(element).empty();
             $(element).append(`${day_date.getDate()}.${day_date.getMonth()+1}.`);
         })
-        // TODO dates in cells
     }
 
     isSelecting()
