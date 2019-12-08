@@ -123,7 +123,7 @@ class WeekScheduleView
         }
         else
         {
-            $($element).css("color", "green"); // TODO
+            $($element).css("background-color", "green"); // TODO
         }
     }
 
@@ -137,11 +137,8 @@ class WeekScheduleView
 
     markDt()
     {
-        let dt_now = new Date();
-        let dt_week = new Date();
-        dt_week.setDate(dt_week.getDate()-(dt_week.getDay()+6)%7);
         this.$container.find(".week_table .tCont").each((index, element) => {
-            if(dt_week.getTime() > this.$dt_selected.getTime() || (dt_now.getDay()+6)%7+1 > $(element).data("row") || (((dt_now.getDay()+6)%7+1) == $(element).data("row") && dt_now.getHours > $(element).data("col")+3)){
+            if(this.isInPast($(element).data("row"), $(element).data("col"))){
                 $(element).css("background-color","grey") //FIXME addClass()
             } else {
                 $(element).css("background-color","white") //FIXME addClass()
@@ -217,6 +214,18 @@ class WeekScheduleView
         let month = (dt_questionable.getMonth() == dt_week.getMonth());
         let week = ((dt_questionable.getDate()-(dt_questionable.getDay()+6)%7) == (dt_week.getDate()-(dt_week.getDay()+6)%7));
         return year && month && week;
+    }
+
+    isInPast(row, col)
+    {
+        let dt_week = new Date();
+        dt_week.setDate(dt_week.getDate()-(dt_week.getDay()+6)%7);
+
+        let past_week = dt_week.getTime() > this.$dt_selected.getTime();
+        let past_day  = (dt_now.getDay()+6)%7+1 > $(element).data("row");
+        let current_week = 6;
+        let past_hour = (((dt_now.getDay()+6)%7+1) == $(element).data("row") && dt_now.getHours > $(element).data("col")+3);
+        return past_week || (past_day && current_week) || (past_hour && current_week);
     }
 
 
