@@ -1,3 +1,6 @@
+// ITU 2019 Project
+// Authors: Radek Veverka <xvever13>
+// Main view with header
 
 class MainView 
 {

@@ -1,3 +1,7 @@
+// ITU 2019 Project
+// Authors: Ladislav Bezděčík <xbezde13>
+// View for schedule of rooms in a single day
+
 class RoomScheduleView {
 
 	constructor($controller)

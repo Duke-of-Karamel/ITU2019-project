@@ -1,3 +1,6 @@
+// ITU 2019 Project
+// Radek Veverka <xvever13>
+// View of my reservations
 
 class MyReservationsView
 {

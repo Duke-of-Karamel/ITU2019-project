@@ -1,3 +1,7 @@
+// ITU 2019 Project
+// Radek Veverka <xvever13>
+// reservation dialog view inside view
+
 class ReservationDialog 
 {
     constructor(view, $appendTo, dt_min, dt_max, reservation = null)

@@ -1,3 +1,7 @@
+// ITU 2019 Project
+// Authors: Lukáš Wagner <xwagne10>, Radek Veverka <xvever13>
+// Class of utilities used all over project
+
 class Utils 
 {
     static parseTimeStamp(timestampseconds)

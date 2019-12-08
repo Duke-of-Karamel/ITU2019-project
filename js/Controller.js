@@ -1,3 +1,7 @@
+// ITU 2019 Project
+// Authors: Radek Veverka <xvever13>
+// Controller of the application
+
 /**
  * The entry point of the application, main controller, manages views and provides data to both backend and frontend. Connects backend and frontend
  */
