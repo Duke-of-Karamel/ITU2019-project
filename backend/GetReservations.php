@@ -1,4 +1,8 @@
 <?php
+// ITU 2019 Project
+// Authors: Lukáš Wagner <xwagne10>, Radek Veverka <xvever13>
+// php script for select query
+
 require 'db_connect.php';
 mb_internal_encoding("utf-8");
 

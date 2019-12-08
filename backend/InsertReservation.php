@@ -1,4 +1,8 @@
 <?php
+// ITU 2019 Project
+// Authors: Lukáš Wagner <xwagne10>, Radek Veverka <xvever13>
+// php script for inserting into database
+
 require 'db_connect.php';
 
 
