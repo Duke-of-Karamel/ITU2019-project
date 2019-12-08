@@ -187,6 +187,49 @@ select {
     width: 100px;
 }
 
+.dialog {
+    border: 2px solid green;
+    border-radius: 5px;
+    box-shadow: 5px 5px 3px grey;
+    padding: 10px;
+}
+
+.dialog-footer {
+    margin-top: 10px;
+}
+
+.res-dialog {
+    position: absolute;
+    width: 400px;
+}
+
+.res-dialog-body {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.res-dialog-from, .res-dialog-to {
+    display: flex;
+}
+
+.res-dialog-from div, .res-dialog-to div {
+    flex-basis: 50px;
+}
+
+.res-dialog-desc {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+input[type="time"] {
+    width: 100px;
+}
+
+textarea {
+    border-radius: 5px;
+}
+
 .form {
     padding: 15px;
     margin: auto;
