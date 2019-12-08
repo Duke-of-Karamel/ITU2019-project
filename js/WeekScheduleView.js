@@ -170,6 +170,9 @@ class WeekScheduleView
             date_select.setMinutes(0);
             let date_dialog = new Date(date_select.getTime());
 
+            date_select.setHours($($element).data("col") + 3);
+            date_dialog.setHours(this.$container.find(".dialog-cell").parent().data("col") + 3);
+
             if (date_dialog.getTime() > date_select.getTime())
             {
                 date_select.setHours($($element).data("col") + 2);
