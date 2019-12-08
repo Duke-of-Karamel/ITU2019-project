@@ -137,10 +137,10 @@ class WeekScheduleView
         }
         else 
         {
+            let $selectedBois = this.$container.find(".selected-cell");
             let selectingRow = parseInt($selectedBois.data("row"));
             if (row != selectingRow)
                 return;
-            let $selectedBois = this.$container.find(".selected-cell");
             let $first = $selectedBois.first();
             let $last = $selectedBois.last();
             t
