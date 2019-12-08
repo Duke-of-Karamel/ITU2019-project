@@ -11,7 +11,11 @@ require 'db_connect.php';
 print_r($_POST);
 try
 {
-$sql = $conn->prepare("INSERT INTO reservation (user_id, room_id, description, dt_created, dt_from, dt_to) VALUES (?, ?, ?, ?, ?, ?)");
+$sql = $conn->prepare("INSERT INTO reservations (user, room_id, description, dt_created, dt_from, dt_to) VALUES (?, ?, ?, ?, ?, ?)");
+if (!$sql)
+{
+    echo $conn->error;
+}
 $sql->bind_param('sisiii', $_POST['user_id'], $_POST['room_id'], $_POST['description'], time(), $_POST['dt_from'], $_POST['dt_to']);
 $sql->execute();
 } catch(mysqli_sql_exception $e) {

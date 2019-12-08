@@ -281,3 +281,57 @@ textarea {
     height: 40px;
     background-color: red !important;
 }
+
+.schema-pointer-container img {
+    width: 40px;
+    height: 40px;
+}
+
+.schema-pointer-container {
+    position: absolute;
+}
+
+.schema-image-container > img {
+}
+
+.schema-container {
+    position: absolute;
+    top: 150px;
+    background-color: white;
+    border-radius: 5px;
+    border: 2px solid black;
+    padding: 5px;
+    margin-left: 200px;
+
+}
+
+.show-schema {
+    margin-top: 10px;
+    margin-left: 5px;
+}
+
+.selected-cell {
+    background-color: green !important;
+}
+
+.this-user-mark {
+    background-color: blue !important;
+
+}
+
+.other-user-mark {
+    background-color: red !important;
+}
+
+.selected-cell, .this-user-mark, .other-user-mark {
+    height: 40px;
+}
+
+.cell-past {
+    background-color: lightgray !important;
+}
+
+
+.week_table tr {
+    height: 40px;
+}

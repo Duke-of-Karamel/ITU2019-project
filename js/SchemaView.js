@@ -9,17 +9,19 @@ class SchemaView
         this.image              = new Image();
         this.imgWidth           = 0;
         this.imgHeight          = 0;
+
+        this.build();
     }
     
     build()
     {
         this.$container.append(this.$imageContainer);
         this.$imageContainer.append(this.image);
-        this.$pointer = $(`
-            <div class='schema-pointer-container'>
-                <img src='https://vevesoft.net/ituproject/arrow.png'>
-            </div>
-        `);
+        // this.$pointer = $(`
+        //     <div class='schema-pointer-container'>
+        //         <img src='https://vevesoft.net/ituproject/arrow.png'>
+        //     </div>
+        // `);
         this.$imageContainer.append(this.$pointer);
     }
 
@@ -32,7 +34,7 @@ class SchemaView
             this.imgWidth = this.image.width;
             this.imgHeight = this.image.height;
 
-            this.updateCursor();
+         //   this.updateCursor();
         });
 
         this.image.src = data.schema_src;

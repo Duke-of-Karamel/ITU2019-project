@@ -398,14 +398,13 @@ class WeekScheduleView
         let room = this.rooms.find((val) => val.room_shortcut == room_sc );
 
         this.schemaView.update(room);
-        this.schemaView.$container.fadeIn(500);
+        this.schemaView.$container.show();
     }
 
     onSchemaHide()
     {
         console.log("Hiding schema.");
-
-        this.schemaView.hide();
+        this.schemaView.$container.hide();
     }
 
 

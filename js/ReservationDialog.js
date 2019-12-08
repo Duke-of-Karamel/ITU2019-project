@@ -85,7 +85,7 @@ class ReservationDialog
         let toval   = this.$dialog.find(".res-dialog-inp-to").val();
 
         let data = {
-            description: this.$dialog.find("textarea").text(),
+            description: this.$dialog.find("textarea").val(),
             h_from:      parseInt(fromval.split(":")[0]),
             m_from:      parseInt(fromval.split(":")[1]),
             h_to:        parseInt(toval.split(":")[0]),
