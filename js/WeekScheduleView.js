@@ -137,7 +137,6 @@ class WeekScheduleView
 
     markDt()
     {
-        let dt_now = new Date();
         this.$container.find(".week_table .tCont").each((index, element) => {
             if(this.isInPast($(element).data("row"), $(element).data("col"))){
                 $(element).css("background-color","grey") //FIXME addClass()
@@ -148,9 +147,9 @@ class WeekScheduleView
 
         let day_date = new Date();
         this.$container.find(".week_table .tHead .tDate").each((index, element) => {
-            day_date.setDate(dt_now.getDate()-(dt_now.getDay()+6)%7+$(element).data("row"));
+            day_date.setDate(this.$dt_selected.getDate()-((this.$dt_selected.getDay()+6)%7)+$(element).data("row")-1);
             $(element).empty();
-            $(element).append(`${day_date.getDate()}.${day_date.getMonth()}.`);
+            $(element).append(`${day_date.getDate()}.${day_date.getMonth()+1}.`);
         })
         // TODO dates in cells
     }
