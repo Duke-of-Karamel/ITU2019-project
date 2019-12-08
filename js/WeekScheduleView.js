@@ -5,8 +5,8 @@ class WeekScheduleView
         this.$container = null; // Is set later in build
         this.$controller = $controller;
         this.rooms = null;
-        this.isSelecting = false;
         this.schemaView = new SchemaView();
+        this.reservationDialog = null;
         this.build();
     }
 
@@ -137,15 +137,16 @@ class WeekScheduleView
         let row = parseInt($element.data("row"));
         let col = parseInt($element.data("col"));
         console.log(`Clicked in table pos [${row}] [${col}]`);
-
         // Did we click to past?
         if ($element.hasClass("cell-past"))
             return;
         
-        if (this.isSelecting == false)
+        if (this.reservationDialog == null)
         {
             this.markReservation("selected-cell", row, col, 0, 60);
-            this.isSelecting = true;
+            this.reservationDialog = new ReservationDialog(this, $("body"));
+            this.setupDialogPosition($element, this.reservationDialog.$dialog);
+            console.log($element.offset());
         }
         else 
         {
@@ -163,8 +164,14 @@ class WeekScheduleView
             // We are selecting
             
         }
+    }
 
-
+    setupDialogPosition($element, $dialog)
+    {
+        let offset = $element.offset();
+        let left = offset.left > innerWidth / 2 ? $dialog.width() : 0;
+        $dialog.css("top", offset.top + $element.height() + "px");
+        $dialog.css("left", (offset.left - left) + "px");
     }
 
     reselect(row, dt_from, dt_to)
@@ -205,6 +212,11 @@ class WeekScheduleView
             $(element).append(`${day_date.getDate()}.${day_date.getMonth()+1}.`);
         })
         // TODO dates in cells
+    }
+
+    isSelecting()
+    {
+        return this.reservationDialog != null;
     }
 
     makeRoomPicker(rooms)
@@ -289,7 +301,9 @@ class WeekScheduleView
 
     onSelectionCancel($dialog)
     {
-        // TODO
+        this.reservationDialog = null;
+        this.$container.find(".selected-cell").remove();
+
     }
 
     onSelectionConfirm($dialog)
