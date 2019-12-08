@@ -139,7 +139,7 @@ class WeekScheduleView
     {
         let dt_now = new Date();
         let dt_week = new Date();
-        dt_week.setDate(dt_week.getDate()-(dt_week.getDay())+6)%7;
+        dt_week.setDate(dt_week.getDate()-(dt_week.getDay()+6)%7);
         this.$container.find(".week_table .tCont").each((index, element) => {
             if(dt_week.getTime() > this.$dt_selected.getTime() || (dt_now.getDay()+6)%7+1 > $(element).data("row") || (((dt_now.getDay()+6)%7+1) == $(element).data("row") && dt_now.getHours > $(element).data("col")+3)){
                 $(element).css("background-color","grey") //FIXME addClass()
