@@ -247,7 +247,9 @@ class WeekScheduleView
             }
             if (hrs == hours-1){
                 to = date_to.getMinutes();
-                to = to? to : 60;
+            }
+            if (hours == 1){
+                to = to-from
             }
             this.markReservation(markClass,(date_from.getDay()+6)%7+1,date_from.getHours()+hrs-3, from, to);
         }
