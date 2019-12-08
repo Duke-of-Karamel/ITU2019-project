@@ -3,12 +3,12 @@ class ReservationDialog
     constructor(view, $appendTo, dt_min, dt_max, reservation = null)
     {
         let html = `
-            <div class="res-dialog">
-                <div class="res-dialog-header">
+            <div class="res-dialog dialog">
+                <div class="res-dialog-header dialog-header">
 
                 </div>  
 
-                <div class="res-dialog-body">
+                <div class="res-dialog-body dialog-body">
                     <div class="res-dialog-from-to">
                         <div class="res-dialog-from">
                             <div>Od:</div>
@@ -30,6 +30,10 @@ class ReservationDialog
                         <textarea class="res-dialog-tarea-desc"></textarea>
                     </div>
 
+                    
+                </div>
+
+                <div class="res-dialog-footer dialog-footer">
                     <div class="res-dialog-buttons">
                         <button class="btn-green btn-reserve">Rezervovat</button>
                         <button class="btn-green btn-close">Zavřít</button>
