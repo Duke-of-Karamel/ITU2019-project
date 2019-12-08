@@ -9,6 +9,7 @@ class RoomScheduleView {
 		this.$container = null;
 		this.$controller = $controller;
 		this.$rooms = null;
+		this.reservationDialog = null;
 		this.build();
 	}
 
@@ -19,13 +20,13 @@ class RoomScheduleView {
 
 	build() {
 		let form = $(`
-			<div class="dayroom-setup-cont">
-				<div class="dayroom-setup">
+			<div class="room-setup-cont">
+				<div class="room-setup">
 					<div>Datum: </div>
-					<button id="prevDay">&lt;</button>
+					<button id="prevDay" class="btn-green">&lt;</button>
 					<input type="date" id="datePicker">
-					<button id="today">Dnes</button>
-					<button id="nextDay">&gt;</button>
+					<button id="today" class="btn-green">Dnes</button>
+					<button id="nextDay" class="btn-green">&gt;</button>
 				</div>
 			</div>
 		`);
@@ -41,7 +42,7 @@ class RoomScheduleView {
 		let j;
 		let row;
 		let col;
-		for(i=0; i<3; i++) {
+		for(i=0; i<6; i++) {
 			row = $('<tr>');
 			for(j=0; j<=19; j++) {
 				if (i === 0) {
@@ -83,6 +84,7 @@ class RoomScheduleView {
 		this.$container.find("#nextDay").on("click",() => this.next_day());
 		this.$container.find("#today").on("click",() => this.today());
 		this.$container.find("#datePicker").on("change", (element) => this.dateChange($(element.currentTarget)));
+
 	}
 
 	pick($element) {
@@ -133,6 +135,7 @@ class RoomScheduleView {
 				if (!this.fallback) {
 					this.rowStart = Number(0);
 					this.colStart = Number(0);
+					this.showRes($element);
 				}
 			}
 		}
@@ -171,12 +174,21 @@ class RoomScheduleView {
 		this.$rooms = $rooms;
 		this.markReservations();
 		this.updateRooms();
+		this.rowStart = Number(0);
+		this.colStart = Number(0);
+	}
+
+	showRes($element) {
+		var offset = $element.offset();
+		this.reservationDialog = new ReservationDialog(this, $("body"));
+		this.reservationDialog.$dialog.css("top",  offset.top + $element.height() +"px");
+		this.reservationDialog.$dialog.css("left", offset.left +"px");
 	}
 
 	markReservations() {
 		$("td").filter(".val").removeClass('taken').removeClass('user').removeClass('nonuser').removeClass('past').removeClass('picked').empty();
 		this.$reservations.forEach($element => {
-			if(this.isPickedDay(new Date($element.dt_from*1000/*ms*/))) {
+			if(this.isPickedDay(new Date($element.dt_from*1000))) {
 				let date_from = new Date($element.dt_from*1000);
 				let date_to = new Date($element.dt_to*1000);
 				let hours = date_to.getHours() - date_from.getHours() + (date_to.getMinutes()-date_from.getMinutes() > 0);
