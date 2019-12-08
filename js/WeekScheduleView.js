@@ -269,7 +269,7 @@ class WeekScheduleView
         rooms.forEach(room => {
             this.$container.find("#room_picker").append("<option>" + room.room_shortcut + "</option>");
         });
-        this.$room_selected = $($element).find("option:selected").text();
+        this.$room_selected = this.$container.find("#room_picker").find("option:selected").text();
     }
 
 
