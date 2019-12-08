@@ -137,6 +137,7 @@ class WeekScheduleView
 
     markDt()
     {
+        let dt_now = new Date();
         this.$container.find(".week_table .tCont").each((index, element) => {
             if(this.isInPast($(element).data("row"), $(element).data("col"))){
                 $(element).css("background-color","grey") //FIXME addClass()
