@@ -124,6 +124,19 @@ class WeekScheduleView
         this.$reservations = $reservations;
         this.markReservations();
         this.makeRoomPicker(rooms);
+        this.markDt();
+    }
+
+    markDt()
+    {
+        let dt_now = new Date();
+        // let dt_week = new Date();
+        // dt_week.setDate(dt_week.getDate()-(dt_week.getDay())+6)%7;
+        this.$container.find(".week_table .tCont").each((index, element) => {
+            if(!this.isWithinWeek(dt_now,this.$dt_selected) || (dt_now.getDay()+6)%7+1 > element.data(row) || ((dt_now.getDay()+6)%7+1 == element.data(row) && dt_now.getHours > element.data(col)+4)){
+                element.css("background-color","grey") //FIXME addClass()
+            }
+        })
     }
 
     makeRoomPicker(rooms)
@@ -138,6 +151,7 @@ class WeekScheduleView
 
     markReservations()
     {
+        this.$container.find(".week_table .tCont").empty(); // Delete every mark currently in table
         this.$reservations.forEach($element => {
             if(this.$room_selected == $element.room.room_shortcut || this.$room_selected == "ALL")
             {
@@ -145,36 +159,45 @@ class WeekScheduleView
 
                 if(this.isWithinWeek(date_from,this.$dt_selected))
                 {
-                    let seconds = $element.dt_to - $element.dt_from;
-                    let hours = seconds/3600 + (seconds%3600 > 0);
+                    let date_to = new Date($element.dt_to*1000);
+                    let hours = date_from.getHours() - date_to.getHours() + (date_to.getMinutes() > 0);
                     let css = null;
                     if ($element.user == this.$controller.getCurrentUser())
                     {
-                        css = "green"
+                        css = "thisUserMark"
                     }
-                    else//FIXME
+                    else
                     {
-                        css = "red"
+                        css = "otherUserMark"
                     }
 
-                    for(; hours > 0; hours--){
-                        this.markReservation(css,(date_from.getDay+6)%7+1,date_from.getHours+hours-4/*FIXME my schedule starts at 4:00*/)
+                    for(hrs = hours - 1; hrs >= 0; hrs--){
+                        let from = 0;
+                        let to = 60;
+                        if (hrs == 0){
+                            from = date_from.getMinutes();
+                        }
+                        if (hrs == hours-1){
+                            to = date_to.getMinutes();
+                        }
+                        this.markReservation(css,(date_from.getDay()+6)%7+1,date_from.getHours()+hrs-4, from, to);
                     }
                 }
             }
         });
     }
 
-    markReservation($css_class, $row, $collumn)
+    markReservation($css_class, $row, $collumn,from_minu, to_minu)
     {
-        //FIXME
+        css_percent = "style=\"margin-left:" + from_minu/60*100 + "%;width:" + to_minu/60*100 + "%;\"";
+        this.$container.find(`.week_table .tCont[data-row='${$row}'][data-col='${$collumn}']`).append(`<div ${css_percent}></div>`).addClass($css_class);
     }
 
     isWithinWeek(dt_questionable, dt_week)
     { /*604800 week in seconds*/
         let year = (dt_questionable.getFullYear() == dt_week.getFullYear());
         let month = (dt_questionable.getMonth() == dt_week.getMonth());
-        let week = (dt_questionable.getDate()-dt_questionable.getDay() == dt_week.getDate()-dt_week.getDay());
+        let week = (dt_questionable.getDate()-(dt_questionable.getDay()+6)%7 == dt_week.getDate()-(dt_week.getDay())+6)%7;
         return year && month && week;
     }
 }
