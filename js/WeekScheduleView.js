@@ -133,7 +133,7 @@ class WeekScheduleView
         // let dt_week = new Date();
         // dt_week.setDate(dt_week.getDate()-(dt_week.getDay())+6)%7;
         this.$container.find(".week_table .tCont").each((index, element) => {
-            if(!this.isWithinWeek(dt_now,this.$dt_selected) || (dt_now.getDay()+6)%7+1 > $(element).data(row) /*|| ((dt_now.getDay()+6)%7+1 == $(element).data(row) && dt_now.getHours > $(element).data(col)+4)*/){
+            if(!this.isWithinWeek(dt_now,this.$dt_selected) || (dt_now.getDay()+6)%7+1 > $(element).data(row) || ((dt_now.getDay()+6)%7+1 == $(element).data(row) && dt_now.getHours > $(element).data(col)+4)){
                 $(element).css("background-color","grey") //FIXME addClass()
             }
         })
@@ -205,7 +205,7 @@ class WeekScheduleView
     { /*604800 week in seconds*/
         let year = (dt_questionable.getFullYear() == dt_week.getFullYear());
         let month = (dt_questionable.getMonth() == dt_week.getMonth());
-        let week = (dt_questionable.getDate()-(dt_questionable.getDay()+6)%7 == dt_week.getDate()-(dt_week.getDay())+6)%7;
+        let week = ((dt_questionable.getDate()-(dt_questionable.getDay()+6)%7) == (dt_week.getDate()-(dt_week.getDay()+6)%7));
         return year && month && week;
     }
 
