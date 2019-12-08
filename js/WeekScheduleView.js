@@ -167,16 +167,18 @@ class WeekScheduleView
             let date_shift = week_start + (row - 1)
             date_select.setDate(date_shift);
 
+            date_select.setMinutes(0);
             let date_dialog = new Date(date_select.getTime());
-
-            date_select.setHours($($element).data("col") + 3);
-            date_dialog.setHours(this.$container.find(".dialog-cell").parent().data("col") + 3);
 
             if (date_dialog.getTime() > date_select.getTime())
             {
+                date_select.setHours($($element).data("col") + 3);
+                date_dialog.setHours(this.$container.find(".dialog-cell").parent().data("col") + 4);
                 this.reservationDialog.onTimeRangeRefresh(date_select, date_dialog)
                 this.markReservationRange(date_select,date_dialog,"selected-cell");
             } else {
+                date_select.setHours($($element).data("col") + 4);
+                date_dialog.setHours(this.$container.find(".dialog-cell").parent().data("col") + 3);
                 this.reservationDialog.onTimeRangeRefresh(date_dialog, date_select)
                 this.markReservationRange(date_dialog,date_select,"selected-cell");
             }
