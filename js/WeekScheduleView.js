@@ -225,7 +225,7 @@ class WeekScheduleView
 
         let past_week = dt_week_mon.getTime() > this.$dt_selected.getTime();
         let past_day  = (dt_now.getDay()+6)%7+1 > row;
-        let current_week = (!(past_week)) && ((dt_week_mon.getTime()+604800000) < (this.$dt_selected.getTime()));
+        let current_week = (!(past_week)) && ((dt_week_mon.getTime()+604800000) > (this.$dt_selected.getTime()));
         let past_hour = ((((dt_now.getDay()+6)%7+1) == row) && (dt_now.getHours > (col+3)));
         return past_week || (past_day && current_week) || (past_hour && current_week);
     }
