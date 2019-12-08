@@ -13,7 +13,7 @@ class MyReservationsView
         let html = `
             <div class="res-list-container">
                 <table class="res-list-table">
-                    <thead><th>From</th><th>To</th><th>Room</th><th></th></thead>
+                    <thead><th>Od</th><th>Do</th><th>Místnost</th><th>Popis rezervace</th><th></th></thead>
                     <tbody class="res-list-tbody">
 
                     </tbody>
@@ -49,11 +49,13 @@ class MyReservationsView
 
         for (const res of data_transformed) 
         {
+            let trClass = (res.dt_from * 1000 < Date.now()) ? "past" : "future";
             let $row = $(`
-                <tr>
+                <tr class="${trClass}">
                     <td>${Utils.parseTimeStamp(res.dt_from)}</td>
                     <td>${Utils.parseTimeStamp(res.dt_to)}</td>
                     <td>${res.room.room_shortcut}</td>
+                    <td>${(res.description.length > 0) ? res.description : "-"}</td>
                     <td><div data-res-id="${res.reservation_id}" class="cancel-cross"></div></td>
                 </tr>
             `);

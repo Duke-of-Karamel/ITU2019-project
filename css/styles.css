@@ -101,16 +101,20 @@ section {
  }
 
  table.res-list-table {
-    margin-top: 10px;
-    margin-left: 10px;
+    margin: 10px 10px;
     border: 2px solid green;
     box-shadow: 10px 10px 5px grey;
     font-size: 20px;
     border-collapse: collapse;
+    table-layout: fixed;
  }
 
+table.res-list-table thead {
+    background-image: linear-gradient(white, rgb(226, 224, 224));
+}
+
 table.res-list-table td {
-    padding: 10px 30px;
+    padding: 5px 30px;
 }
 
 table.res-list-table thead th {
@@ -196,7 +200,7 @@ select {
     border: 1px black solid ;
 }
 
-#autoTable th, td, tr {
+#autoTable th, #autoTable td, #autoTable tr {
     width: 50% ;
     height: 100% ;
     border: 1px black solid ;

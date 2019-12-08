@@ -10,6 +10,7 @@
         this.currentView    = null;
         this.loggedUser     = "test_user";
         this.getUrl         = "https://vevesoft.net/ituproject/GetReservations.php";
+        this.removeUrl      = "https://vevesoft.net/ituproject/RemoveReservation.php"
 
         // Make sure the body is clean
         $("body").empty();
@@ -59,6 +60,15 @@
     {
         console.log("Canceling reservation " + res_id);
 
+        $.ajax({
+            url: this.removeUrl,
+            data: {
+                "reservation_id": res_id
+            },
+            method: "POST"
+        }).done(() => {
+            this.refreshData();
+        });
     }
 
     onViewChange(viewName)

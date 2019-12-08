@@ -3,7 +3,12 @@ class Utils
     static parseTimeStamp(timestampseconds)
     {
         let dt = new Date(timestampseconds * 1000);
-        return `${dt.getDay()}.${dt.getMonth()}.${dt.getFullYear()} ${dt.getHours()}:${dt.getMinutes()}`;
+        return `${Utils.zeroPad(dt.getDate())}.${Utils.zeroPad(dt.getMonth())}.${dt.getFullYear()} ${Utils.zeroPad(dt.getHours())}:${Utils.zeroPad(dt.getMinutes())}`;
+    }
+
+    static zeroPad(num)
+    {
+        return (num < 10) ? `0${num}` : `${num}`;
     }
 
     static datePickerFormat(dt)
