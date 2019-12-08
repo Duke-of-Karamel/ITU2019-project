@@ -60,7 +60,8 @@ class ReservationDialog
         this.$dialog = $dialog;
         this.$dialog.hide();
         $appendTo.append(this.$dialog);
-        this.$dialog.fadeIn(500);
+        this.$dialog.fadeIn(200);
+        this.view = view;
 
         this.onTimeRangeRefresh(new Date(), new Date());
 

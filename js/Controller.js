@@ -29,7 +29,6 @@
         this.refreshData();
 
         this.onViewChange("WeekScheduleView");
-        new ReservationDialog(this.myWeekScheduleView, $("body"));
     }
 
     refreshData()

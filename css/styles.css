@@ -151,7 +151,6 @@ table.week_table {
 table.week_table td {
     border: 1px solid green;
     background-color: white;
-
 }
 
 table.week_table tr th:first-child {
@@ -192,6 +191,7 @@ select {
     box-shadow: 5px 5px 3px grey;
     padding: 10px;
     background-color: white;
+    z-index: 9999;
 }
 
 .dialog-footer {
@@ -201,6 +201,8 @@ select {
 .res-dialog {
     position: absolute;
     width: 400px;
+    top: 40px;
+    left: 0px;
 }
 
 .res-dialog-body {
