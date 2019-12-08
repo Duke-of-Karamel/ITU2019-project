@@ -115,7 +115,7 @@ class WeekScheduleView
 
     onRoomChange($element)
     {
-        this.$room_selected = $($element).text();
+        this.$room_selected = $($element).find("option:selected").text();
         this.markReservations();
     }
 
