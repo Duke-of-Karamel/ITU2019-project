@@ -137,10 +137,8 @@ class WeekScheduleView
 
     markDt()
     {
-        let dt_week = new Date();
-        dt_week.setDate(dt_week.getDate()-(dt_week.getDay()+6)%7);
         this.$container.find(".week_table .tCont").each((index, element) => {
-            if(isInPast()){
+            if(this.isInPast($(element).data("row"), $(element).data("col"))){
                 $(element).css("background-color","grey") //FIXME addClass()
             } else {
                 $(element).css("background-color","white") //FIXME addClass()
@@ -218,8 +216,11 @@ class WeekScheduleView
         return year && month && week;
     }
 
-    isInPast()
+    isInPast(row, col)
     {
+        let dt_week = new Date();
+        dt_week.setDate(dt_week.getDate()-(dt_week.getDay()+6)%7);
+
         let past_week = dt_week.getTime() > this.$dt_selected.getTime();
         let past_day  = (dt_now.getDay()+6)%7+1 > $(element).data("row");
         let current_week = 6;
