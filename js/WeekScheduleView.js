@@ -120,6 +120,10 @@ class WeekScheduleView
         let row = parseInt($element.data("row"));
         let col = parseInt($element.data("col"));
         console.log(`Clicked in table pos [${row}] [${col}]`);
+
+        // Did we click to past?
+        if ($element.hasClass("cell-past"))
+            return;
         
         if (this.isSelecting == false)
         {
@@ -132,7 +136,7 @@ class WeekScheduleView
             let selectingRow = parseInt($selectedBois.data("row"));
             if (row != selectingRow)
                 return;
-            
+            let lowestCol = 
             
 
 
@@ -143,8 +147,13 @@ class WeekScheduleView
 
     }
 
-    reselect(dt_from, dt_to)
+    reselect(row, dt_from, dt_to)
     {
+        this.$container.find(".selected-cell div").remove();
+        let $cols = this.$container.find(`.tCont[data-row="${row}"]`);
+
+
+
 
     }
 
@@ -160,7 +169,7 @@ class WeekScheduleView
     {
         this.$container.find(".week_table .tCont").each((index, element) => {
             if(this.isInPast($(element).data("row"), $(element).data("col"))){
-                $(element).css("background-color","grey") //FIXME addClass()
+                $(element).addClass("cell-past");
             } else {
                 $(element).css("background-color","white") //FIXME addClass()
             }
@@ -196,31 +205,28 @@ class WeekScheduleView
                 if(this.isWithinWeek(date_from,this.$dt_selected))
                 {
                     let date_to = new Date($element.dt_to*1000);
-                    let hours = date_from.getHours() - date_to.getHours() + (date_to.getMinutes() > 0);
-                    let css = null;
-                    if ($element.user == this.$controller.getCurrentUser())
-                    {
-                        css = "thisUserMark"
-                    }
-                    else
-                    {
-                        css = "otherUserMark"
-                    }
-
-                    for(let hrs = hours - 1; hrs >= 0; hrs--){
-                        let from = 0;
-                        let to = 60;
-                        if (hrs == 0){
-                            from = date_from.getMinutes();
-                        }
-                        if (hrs == hours-1){
-                            to = date_to.getMinutes();
-                        }
-                        this.markReservation(css,(date_from.getDay()+6)%7+1,date_from.getHours()+hrs-4, from, to);
-                    }
+                    let markClass = ($element.user == this.$controller.getCurrentUser()) ? "this-user-mark" : "other-user-mark";
+                    this.markReservationRange(date_from, date_to, markClass);
                 }
             }
         });
+    }
+
+    markReservationRange(date_from, date_to, markClass)
+    {
+        let hours = date_from.getHours() - date_to.getHours() + (date_to.getMinutes() > 0);
+
+        for(let hrs = hours - 1; hrs >= 0; hrs--){
+            let from = 0;
+            let to = 60;
+            if (hrs == 0){
+                from = date_from.getMinutes();
+            }
+            if (hrs == hours-1){
+                to = date_to.getMinutes();
+            }
+            this.markReservation(markClass,(date_from.getDay()+6)%7+1,date_from.getHours()+hrs-4, from, to);
+        }
     }
 
     markReservation($css_class, $row, $collumn,from_minu, to_minu)
