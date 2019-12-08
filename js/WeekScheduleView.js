@@ -151,6 +151,8 @@ class WeekScheduleView
             let date_shift = week_start + (row - 1)
             date_dialog.setDate(date_shift);
 
+            date_dialog.setHours(col + 3);
+
             date_dialog.setMinutes(0);
             let date_select = new Date(date_dialog.getTime());
             date_select.setHours(date_select.getHours()+1);
