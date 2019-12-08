@@ -179,7 +179,7 @@ class WeekScheduleView
                         css = "otherUserMark"
                     }
 
-                    for(hrs = hours - 1; hrs >= 0; hrs--){
+                    for(let hrs = hours - 1; hrs >= 0; hrs--){
                         let from = 0;
                         let to = 60;
                         if (hrs == 0){
