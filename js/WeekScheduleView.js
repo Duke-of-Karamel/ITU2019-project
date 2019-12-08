@@ -178,4 +178,23 @@ class WeekScheduleView
         let week = (dt_questionable.getDate()-dt_questionable.getDay() == dt_week.getDate()-dt_week.getDay());
         return year && month && week;
     }
+
+
+    // Messages from dialog window
+    onSelectionRefresh($dialog)
+    {
+        // TODO - vytahnout data z dialogu
+    }
+
+    onSelectionCancel($dialog)
+    {
+        // TODO
+    }
+
+    onSelectionConfirm($dialog)
+    {
+        // TODO - vytahnout data z dialogu
+    }
+
+
 }
