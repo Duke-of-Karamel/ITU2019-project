@@ -73,6 +73,7 @@ class WeekScheduleView
     onDateChange($element)
     {
         this.$dt_selected = new Date($($element).val());
+        this.markDt();
     }
 
     onDateNow($element)
@@ -133,14 +134,14 @@ class WeekScheduleView
         // let dt_week = new Date();
         // dt_week.setDate(dt_week.getDate()-(dt_week.getDay())+6)%7;
         this.$container.find(".week_table .tCont").each((index, element) => {
-            if(!this.isWithinWeek(dt_now,this.$dt_selected) || (dt_now.getDay()+6)%7+1 > $(element).data("row") || ((dt_now.getDay()+6)%7+1 == $(element).data("row") && dt_now.getHours > $(element).data("col")+4)){
+            if(!this.isWithinWeek(dt_now,this.$dt_selected) || (dt_now.getDay()+6)%7+1 > $(element).data("row") || ((dt_now.getDay()+6)%7+1 == $(element).data("row") && dt_now.getHours > $(element).data("col")+3)){
                 $(element).css("background-color","grey") //FIXME addClass()
             }
         })
 
         let day_date = new Date();
         this.$container.find(".week_table .tHead .tDate").each((index, element) => {
-            day_date.setDate(dt_now.getDate()-(dt_now.getDay()+6)%7+$(element).data(row));
+            day_date.setDate(dt_now.getDate()-(dt_now.getDay()+6)%7+$(element).data("row"));
             $(element).empty();
             $(element).append(`${day_date.getDate()}.${day_date.getMonth()}.`);
         })
