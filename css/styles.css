@@ -231,51 +231,6 @@ textarea {
     border-radius: 5px;
 }
 
-.form {
-    padding: 15px;
-    margin: auto;
-    text-align: center;
-}
-
-#autoTable {
-    table-layout: fixed ;
-    width: 100% ;
-    border-collapse: collapse ;
-    border: 1px black solid ;
-}
-
-#autoTable th, #autoTable td, #autoTable tr {
-    width: 50% ;
-    height: 100% ;
-    border: 1px black solid ;
-    padding: 10px ;
-}
-
-#autoTable .head {
-    background-image: linear-gradient(#65a33b, #4f8629);
-    color: #ffffff;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-#autoTable th:first-child {
-    width: 100% ;
-}
-
-#autoTable .val:hover {
-    background-color:#65a33b;
-    opacity: 50%;
-}
-
-#autoTable .picked {
-    background-color:#65a33b;
-}
-
-.form {
-    padding: 15px;
-    margin: auto;
-    text-align: center;
-}
-
 #autoTable {
     table-layout: fixed;
     border: 3px solid green;
