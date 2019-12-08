@@ -1,6 +1,10 @@
 class RoomScheduleView {
-	constructor($container) {
-		this.$container = $container;
+
+	constructor($controller)
+	{
+		this.$container = null;
+		this.$controller = $controller;
+		this.build();
 	}
 
 	rowStart = 0;
