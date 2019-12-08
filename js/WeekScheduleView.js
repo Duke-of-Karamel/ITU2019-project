@@ -115,6 +115,11 @@ class WeekScheduleView
         this.markReservations();
     }
 
+    dateFromCell(row, col)
+    {
+        return; //TODO
+    }
+
     onTryReserve($element)
     {
         let row = parseInt($element.data("row"));
@@ -132,10 +137,13 @@ class WeekScheduleView
         }
         else 
         {
-            let $selectedBois = this.$container.find(".selected-cell");
             let selectingRow = parseInt($selectedBois.data("row"));
             if (row != selectingRow)
                 return;
+            let $selectedBois = this.$container.find(".selected-cell");
+            let $first = $selectedBois.first();
+            let $last = $selectedBois.last();
+            t
             let lowestCol = 498489;
             
 
@@ -168,8 +176,10 @@ class WeekScheduleView
     markDt()
     {
         this.$container.find(".week_table .tCont").each((index, element) => {
+            $(element).removeClass("cell-past");
             if(this.isInPast($(element).data("row"), $(element).data("col"))){
                 $(element).addClass("cell-past");
+
             } else {
                 $(element).css("background-color","white") //FIXME addClass()
             }

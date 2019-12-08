@@ -3,7 +3,7 @@ class Utils
     static parseTimeStamp(timestampseconds)
     {
         let dt = new Date(timestampseconds * 1000);
-        return `${Utils.zeroPad(dt.getDate())}.${Utils.zeroPad(dt.getMonth())}.${dt.getFullYear()} ${Utils.zeroPad(dt.getHours())}:${Utils.zeroPad(dt.getMinutes())}`;
+        return `${Utils.zeroPad(dt.getDate())}.${Utils.zeroPad(dt.getMonth() + 1)}.${dt.getFullYear()} ${Utils.zeroPad(dt.getHours())}:${Utils.zeroPad(dt.getMinutes())}`;
     }
 
     static zeroPad(num)

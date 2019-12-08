@@ -1,0 +1,17 @@
+.selected-cell {
+    background-color: green !important;
+}
+
+.this-user-mark {
+    background-color: blue !important;
+
+}
+
+.other-user-mark {
+    background-color: red !important;
+
+}
+
+.cell-past {
+    background-color: lightgray !important;
+}
