@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Počítač: wh41.farma.gigaserver.cz
--- Vytvořeno: Pát 06. pro 2019, 23:33
+-- Vytvořeno: Ned 08. pro 2019, 22:40
 -- Verze serveru: 5.6.45-86.1
 -- Verze PHP: 5.3.3
 
@@ -11,7 +11,7 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 --
--- Databáze: `vevesoft_net_stdb`
+-- Databáze: `vevesoft_net_itu`
 --
 
 -- --------------------------------------------------------
@@ -22,11 +22,36 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `reservations` (
 `reservation_id` int(11) NOT NULL,
-  `user_id` varchar(60) NOT NULL,
   `dt_created` int(11) NOT NULL,
   `dt_from` int(11) NOT NULL,
-  `dt_to` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `dt_to` int(11) NOT NULL,
+  `room_id` int(11) NOT NULL,
+  `description` text NOT NULL,
+  `user` varchar(50) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=38 ;
+
+--
+-- Vypisuji data pro tabulku `reservations`
+--
+
+INSERT INTO `reservations` (`reservation_id`, `dt_created`, `dt_from`, `dt_to`, `room_id`, `description`, `user`) VALUES
+(9, 1575644400, 1575644400, 1575651600, 1, 'afopwefjawiopjefopwejifio pawjfawopfj awopefj piof jiop', 'test_user'),
+(10, 1575709200, 1575709200, 1575721800, 1, 'poiuerpoaj fawe', 'test_user2'),
+(11, 1576398600, 1576398600, 1576400400, 2, 'fawefawfewaefawef', 'test_user'),
+(22, 1575836907, 1575784819, 1575802819, 1, '', 'test_user'),
+(23, 1575836908, 1576042200, 1576053000, 1, '', 'test_user'),
+(26, 1575837255, 1575820816, 1575835216, 1, '', 'test_user'),
+(27, 1575837378, 1575837371, 1575837371, 1, '', 'test_user'),
+(28, 1575837497, 1575951300, 1575999900, 2, '', 'test_user'),
+(29, 1575837524, 1576314000, 1576335600, 1, '', 'test_user'),
+(30, 1575837529, 1576054800, 1576065600, 1, '', 'test_user'),
+(31, 1575837559, 1576134000, 1576155600, 2, '', 'test_user'),
+(32, 1575838634, 1575802854, 1575806454, 2, '', 'test_user'),
+(33, 1575839572, 1576162800, 1576177200, 1, '', 'test_user'),
+(34, 1575839666, 1576400400, 1576414800, 1, '', 'test_user'),
+(35, 1575839678, 1575990000, 1575997200, 1, '', 'test_user'),
+(36, 1575839869, 1575806452, 1575813652, 1, 'fawef', 'test_user'),
+(37, 1575840973, 1575774051, 1575781251, 1, '', 'test_user');
 
 -- --------------------------------------------------------
 
@@ -43,7 +68,15 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   `schema_x` int(11) NOT NULL,
   `schema_y` int(11) NOT NULL,
   `capacity` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Vypisuji data pro tabulku `rooms`
+--
+
+INSERT INTO `rooms` (`room_id`, `room_name`, `room_description`, `room_shortcut`, `schema_src`, `schema_x`, `schema_y`, `capacity`) VALUES
+(1, 'Posluchárna E112', 'Jedna ze dvou hlavních přednáškových místností.', 'E112', 'http://vevesoft.net/ituproject/fit1.png', 70, 70, 150),
+(2, 'Posluchárna D105', 'Hlavní přednášková místnost FITu.', 'D105', 'http://vevesoft.net/ituproject/fit1.png.', 150, 150, 350);
 
 --
 -- Klíče pro exportované tabulky
@@ -69,9 +102,9 @@ ALTER TABLE `rooms`
 -- AUTO_INCREMENT pro tabulku `reservations`
 --
 ALTER TABLE `reservations`
-MODIFY `reservation_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `reservation_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT pro tabulku `rooms`
 --
 ALTER TABLE `rooms`
-MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
