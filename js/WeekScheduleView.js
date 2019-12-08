@@ -161,6 +161,8 @@ class WeekScheduleView
             this.setupDialogPosition($element, this.reservationDialog.$dialog);
             console.log($element.offset());
             this.currentDate = new Date(date_select);
+
+            this.markReservationRange(date_dialog,date_select,"selected-cell");
         }
         else 
         {
