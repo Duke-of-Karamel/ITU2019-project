@@ -4,6 +4,7 @@ class WeekScheduleView
     {
         this.$container = null; // Is set later in build
         this.$controller = $controller;
+        this.isSelecting = false;
         this.build();
     }
 
@@ -116,15 +117,35 @@ class WeekScheduleView
 
     onTryReserve($element)
     {
-        console.log(`Clicked in table pos [${$element.data("row")}] [${$element.data("col")}]`);
-        if (this.$room_selected == "ALL")
+        let row = parseInt($element.data("row"));
+        let col = parseInt($element.data("col"));
+        console.log(`Clicked in table pos [${row}] [${col}]`);
+        
+        if (this.isSelecting == false)
         {
-            this.$controller.plsChangeToDayScheduleByLadislav // TODO
+            this.markReservation("selected-cell", row, col, 0, 60);
+            this.isSelecting = true;
         }
-        else
+        else 
         {
-            $($element).css("background-color", "green"); // TODO
+            let $selectedBois = this.$container.find(".selected-cell");
+            let selectingRow = parseInt($selectedBois.data("row"));
+            if (row != selectingRow)
+                return;
+            
+            
+
+
+            // We are selecting
+            
         }
+
+
+    }
+
+    reselect(dt_from, dt_to)
+    {
+
     }
 
     update($reservations, rooms)
