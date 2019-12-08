@@ -237,7 +237,7 @@ class WeekScheduleView
 
     markReservationRange(date_from, date_to, markClass)
     {
-        let hours = date_to.getHours() - date_from.getHours() + (date_to.getMinutes() > 0);
+        let hours = date_to.getHours() - date_from.getHours() + (date_to.getMinutes()-date_from.getMinutes() > 0);
 
         for(let hrs = hours - 1; hrs >= 0; hrs--){
             let from = 0;
