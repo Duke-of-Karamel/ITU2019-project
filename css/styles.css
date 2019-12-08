@@ -192,6 +192,7 @@ select {
     border-radius: 5px;
     box-shadow: 5px 5px 3px grey;
     padding: 10px;
+    background-color: white;
 }
 
 .dialog-footer {
