@@ -168,9 +168,9 @@ class WeekScheduleView
 
         let day_date = new Date();
         this.$container.find(".week_table .tHead .tDate").each((index, element) => {
-            day_date.setDate(dt_now.getDate()-(dt_now.getDay()+6)%7+$(element).data("row"));
+            day_date.setDate(this.$dt_selected.getDate()-((this.$dt_selected.getDay()+6)%7)+$(element).data("row")-1);
             $(element).empty();
-            $(element).append(`${day_date.getDate()}.${day_date.getMonth()}.`);
+            $(element).append(`${day_date.getDate()}.${day_date.getMonth()+1}.`);
         })
         // TODO dates in cells
     }
@@ -239,13 +239,14 @@ class WeekScheduleView
 
     isInPast(row, col)
     {
-        let dt_week = new Date();
-        dt_week.setDate(dt_week.getDate()-(dt_week.getDay()+6)%7);
+        let dt_now = new Date();
+        let dt_week_mon = new Date();
+        dt_week_mon.setDate(dt_week_mon.getDate()-(dt_week_mon.getDay()+6)%7);
 
-        let past_week = dt_week.getTime() > this.$dt_selected.getTime();
-        let past_day  = (dt_now.getDay()+6)%7+1 > $(element).data("row");
-        let current_week = 6;
-        let past_hour = (((dt_now.getDay()+6)%7+1) == $(element).data("row") && dt_now.getHours > $(element).data("col")+3);
+        let past_week = dt_week_mon.getTime() > this.$dt_selected.getTime();
+        let past_day  = (dt_now.getDay()+6)%7+1 > row;
+        let current_week = (!(past_week)) && ((dt_week_mon.getTime()+604800000) > (this.$dt_selected.getTime()));
+        let past_hour = ((((dt_now.getDay()+6)%7+1) == row) && (dt_now.getHours > (col+3)));
         return past_week || (past_day && current_week) || (past_hour && current_week);
     }
 
