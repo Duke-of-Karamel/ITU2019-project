@@ -248,8 +248,12 @@ textarea {
     background-color:#65a33b;
 }
 
+#autoTable .taken {
+    background-color: green;
+}
+
 #autoTable td {
-    padding: 30px 0;
+    height: 43px;
     border: 1px solid green;
     background-color: white;
 }
@@ -265,4 +269,15 @@ textarea {
     padding: 10px 0px;
     border-bottom: 3px solid green;
     background-image: linear-gradient(white, rgb(233, 233, 233));
+}
+
+.user {
+    height: 40px;
+    background-color: green !important;
+
+}
+
+.nonuser {
+    height: 40px;
+    background-color: red !important;
 }

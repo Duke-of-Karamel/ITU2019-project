@@ -1,11 +1,17 @@
 class RoomScheduleView {
-	constructor($container) {
-		this.$container = $container;
+
+	constructor($controller)
+	{
+		this.$container = null;
+		this.$controller = $controller;
+		this.$rooms = null;
+		this.build();
 	}
 
 	rowStart = 0;
 	colStart = 0;
 	fallback = false;
+	$pickedDay = new Date();
 
 	build() {
 		let form = $(`
@@ -26,25 +32,26 @@ class RoomScheduleView {
 			</div>
 		`);
 
-		let table = $('<table id="autoTable">').addClass('foo');
+		let table = $('<table id="autoTable" class="room_table">').addClass('foo');
 		let i;
 		let j;
 		let row;
 		let col;
 		for(i=0; i<3; i++) {
 			row = $('<tr>');
-			for(j=0; j<=24; j++) {
+			for(j=0; j<=19; j++) {
 				if (i === 0) {
 					if (j === 0) {
 						col = $('<th>').addClass('head').addClass('side').text('Čas');
 					}
 					else {
-						col = $('<th>').addClass('head').text(j - 1);
+						col = $('<th>').addClass('head').text(j + 3 + ':00-:59');
 					}
 				}
 				else {
 					if (j === 0) {
-						col = $('<th>').addClass('side').text('room ' + i);
+						col = $('<th>').addClass('side').attr("data-row", i).text('room ' + i);
+						// col = $('<th>').addClass('side').attr("data-roomId", this.$rooms[i-1].room_id).text(this.$rooms[i-1].room_shortcut);
 					}
 					else {
 						col = $('<td>').addClass('val').attr("data-row", i).attr("data-col", j);
@@ -64,13 +71,14 @@ class RoomScheduleView {
 		roomDiv.append(form);
 		roomDiv.append(tableDiv);
 
-		this.$container.append(roomDiv);
+		this.$container = roomDiv;
 		this.today();
 
 		this.$container.find("td").filter(".val").on("click",(element) => this.pick($(element.currentTarget)));
 		this.$container.find("#prevDay").on("click",() => this.prev_day());
 		this.$container.find("#nextDay").on("click",() => this.next_day());
 		this.$container.find("#today").on("click",() => this.today());
+		this.$container.find("#datePicker").on("change", (element) => this.dateChange($(element.currentTarget)));
 	}
 
 	pick($element) {
@@ -79,9 +87,11 @@ class RoomScheduleView {
 		let rowStart = this.rowStart;
 		let colStart = this.colStart;
 		if (Number(rowStart) === 0) {
-			$element.addClass("picked");
-			this.rowStart = Number($element.attr("data-row"));
-			this.colStart = Number($element.attr("data-col"));
+			if(this.isPickable(Number($element.attr("data-row")), Number($element.attr("data-col")))) {
+				$element.addClass("picked");
+				this.rowStart = Number($element.attr("data-row"));
+				this.colStart = Number($element.attr("data-col"));
+			}
 		}
 		else {
 			rowEnd = Number($element.attr("data-row"));
@@ -89,30 +99,32 @@ class RoomScheduleView {
 			if (Number(rowStart) === Number(rowEnd)) {
 				if (Number(colEnd) < Number(colStart)) {
 					for (let i = colEnd; i <= colStart; i++){
-						if ($("td").filter("[data-row=" + String(rowStart) + "]").filter("[data-col=" + String(i) + "]").hasClass('taken')){
+						if(!this.isPickable(rowStart, i)) {
 							this.fallback = true;
 							break;
 						}
 					}
 					if (!this.fallback) {
 						for (let i = colEnd; i <= colStart; i++) {
-							$("td").filter("[data-row=" + String(rowStart) + "]").filter("[data-col=" + String(i) + "]").addClass('picked').addClass('taken');
+							$("td").filter("[data-row=" + String(rowStart) + "]").filter("[data-col=" + String(i) + "]").removeClass('picked').addClass('taken');
 						}
 					}
 				}
-				else if (Number(colEnd) > Number(colStart))
-				{
+				else if (Number(colEnd) > Number(colStart)) {
 					for (let i = colStart; i <= colEnd; i++){
-						if ($("td").filter("[data-row=" + String(rowStart) + "]").filter("[data-col=" + String(i) + "]").hasClass('taken')) {
+						if(!this.isPickable(rowStart, i)) {
 							this.fallback = true;
 							break;
 						}
 					}
 					if (!this.fallback) {
 						for (let i = colStart; i <= colEnd; i++) {
-							$("td").filter("[data-row=" + String(rowStart) + "]").filter("[data-col=" + String(i) + "]").addClass('picked').addClass('taken');
+							$("td").filter("[data-row=" + String(rowStart) + "]").filter("[data-col=" + String(i) + "]").removeClass('picked').addClass('taken');
 						}
 					}
+				}
+				else {
+					$("td").filter("[data-row=" + String(rowStart) + "]").filter("[data-col=" + String(colStart) + "]").removeClass('picked').addClass('taken');
 				}
 				if (!this.fallback) {
 					this.rowStart = Number(0);
@@ -124,27 +136,91 @@ class RoomScheduleView {
 	}
 
 	prev_day() {
-		let dt_picker = this.$container.find("#datePicker");
-		let dt = new Date(dt_picker.val());
-		dt.setDate(dt.getDate()-1);
-		dt_picker.val(dt.toISOString().slice(0,10));
+		let datePicker = this.$container.find("#datePicker");
+		let date = new Date(datePicker.val());
+		date.setDate(date.getDate()-1);
+		datePicker.val(date.toISOString().slice(0,10));
+		this.dateChange(datePicker)
 	}
 
 	next_day() {
-		let dt_picker = this.$container.find("#datePicker");
-		let dt = new Date(dt_picker.val());
-		dt.setDate(dt.getDate()+1);
-		dt_picker.val(dt.toISOString().slice(0,10));
+		let datePicker = this.$container.find("#datePicker");
+		let date = new Date(datePicker.val());
+		date.setDate(date.getDate()+1);
+		datePicker.val(date.toISOString().slice(0,10));
+		this.dateChange(datePicker)
 	}
 
 	today() {
-		console.log('today');
-		this.$container.find("#datePicker").val( new Date().toJSON().slice(0,10));
+		let datePicker = this.$container.find("#datePicker");
+		datePicker.val(new Date().toJSON().slice(0,10));
+		this.dateChange(datePicker);
 	}
 
-	update($reservations, $rooms)
-	{
+	dateChange ($element) {
+		this.$pickedDay = new Date($($element).val());
+		this.$controller.refreshData();
+	}
+
+	update($reservations, $rooms) {
 		this.$reservations = $reservations;
 		this.$rooms = $rooms;
+		this.markReservations();
+		this.updateRooms();
+	}
+
+	markReservations() {
+		$("td").filter(".val").removeClass('taken').removeClass('user').removeClass('nonuser').removeClass('past').removeClass('picked').empty();
+		this.$reservations.forEach($element => {
+			if(this.isPickedDay(new Date($element.dt_from*1000/*ms*/))) {
+				let date_from = new Date($element.dt_from*1000);
+				let date_to = new Date($element.dt_to*1000);
+				let hours = date_to.getHours() - date_from.getHours() + (date_to.getMinutes()-date_from.getMinutes() > 0);
+				let css = null;
+				if ($element.user === this.$controller.getCurrentUser()) {
+					css = "user"
+				}
+				else {
+					css = "nonuser"
+				}
+				for(let hrs = hours - 1; hrs >= 0; hrs--){
+					let from = 0;
+					let to = 60;
+					if (hrs === 0){
+						from = date_from.getMinutes();
+					}
+					if (hrs === hours-1){
+						to = date_to.getMinutes();
+					}
+					if (hours === 1){
+						to = to-from
+					}
+					this.markReservation(css, Number($element.room_id),date_from.getHours()+hrs-4, from, to);
+				}
+			}
+		});
+	}
+
+	updateRooms() {
+		let i = 1;
+		this.$rooms.forEach($element => {
+			this.$container.find(`.side[data-row='${i}']`).text($element.room_shortcut);
+			i++;
+		});
+	}
+
+	markReservation($css_class, $row, $collumn, from_minu, to_minu) {
+		let css_percent = "style=\"margin-left:" + from_minu/60*100 + "%;width:" + to_minu/60*100 + "%;\"";
+		this.$container.find(`.room_table .val[data-row='${$row}'][data-col='${$collumn}']`).append(`<div class="${$css_class}" ${css_percent}></div>`).addClass('past');
+	}
+
+	isPickable(row, col){
+		let elem = $("td").filter("[data-row=" + String(row) + "]").filter("[data-col=" + String(col) + "]");
+		return !(elem.hasClass('taken') || elem.hasClass('past'));
+	}
+
+
+	isPickedDay(date) {
+		return date.toISOString().slice(0,10) === this.$pickedDay.toISOString().slice(0,10)
 	}
 }
