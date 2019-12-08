@@ -8,13 +8,14 @@ require 'db_connect.php';
 // }
 
 // ------ OR LIKE THIS: ------
+print_r($_POST);
 try
 {
 $sql = $conn->prepare("INSERT INTO reservation (user_id, room_id, description, dt_created, dt_from, dt_to) VALUES (?, ?, ?, ?, ?, ?)");
 $sql->bind_param('sisiii', $_POST['user_id'], $_POST['room_id'], $_POST['description'], time(), $_POST['dt_from'], $_POST['dt_to']);
 $sql->execute();
 } catch(mysqli_sql_exception $e) {
-    die(500);
+
 }
 
 

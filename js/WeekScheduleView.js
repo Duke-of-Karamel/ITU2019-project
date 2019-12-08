@@ -356,6 +356,7 @@ class WeekScheduleView
 
     onSelectionCancel($dialog)
     {
+        $dialog.remove();
         this.reservationDialog = null;
         this.$container.find(".selected-cell").remove();
 
@@ -381,6 +382,7 @@ class WeekScheduleView
         data.room_id = parseInt(room.room_id);
 
         this.$controller.createReservation(data);
+        this.onSelectionCancel($dialog);
         console.log(data);
     }
 
