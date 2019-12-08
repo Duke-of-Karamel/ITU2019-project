@@ -143,6 +143,17 @@ class WeekScheduleView
         
         if (this.reservationDialog == null)
         {
+            let date_dialog = new Date(this.$dt_selected.getTime());
+            let date = this.$dt_selected.getDate();
+            let monday_zero = ((this.$dt_selected.getDay()+6)%7);
+            let week_start = date - monday_zero;
+            let date_shift = week_start + (row - 1)
+            date_dialog.setDate(date_shift);
+
+            date_dialog.setMinutes(0);
+            let date_select = new Date(date_dialog.getTime());
+            date_select.setHours(date_select.getHours()+1);
+
             this.markReservation("selected-cell", row, col, 0, 60);
             this.$container.find(".selected-cell").addClass("dialog-cell");
             this.reservationDialog = new ReservationDialog(this, $("body"));
