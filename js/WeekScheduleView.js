@@ -291,6 +291,7 @@ class WeekScheduleView
             }
             if (hrs == hours-1){
                 to = date_to.getMinutes();
+                to = to? to:60;
             }
             if (hours == 1){
                 to = to-from
