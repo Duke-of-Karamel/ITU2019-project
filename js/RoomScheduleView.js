@@ -1,10 +1,6 @@
 class RoomScheduleView {
-
-	constructor($controller)
-	{
-		this.$container = null;
-		this.$controller = $controller;
-		this.build();
+	constructor($container) {
+		this.$container = $container;
 	}
 
 	rowStart = 0;
@@ -12,40 +8,23 @@ class RoomScheduleView {
 	fallback = false;
 
 	build() {
-		let html = `
-			<div class="itu-app">
-
-				<header>
-					<div class="header-left">
-						<div class="head-title">FIT reservation system</div>
-					</div>
-
-					<div class="header-middle">
-						<div class="menu-item btn-green">Rooms</div>
-						<div class="menu-item btn-green">Week</div>
-					</div>
-
-					<div class="header-right">
-						<div class="auth-user">test_user</div>
-						<button class="btn-green">Logout</button>
-					</div>
-				</header>
+		let form = $(`
+			<div class="dayroom-setup-cont">
+				<div class="dayroom-setup">
+					<div>Datum: </div>
+					<button id="prevDay">&lt;</button>
+					<input type="date" id="datePicker">
+					<button id="today">Dnes</button>
+					<button id="nextDay">&gt;</button>
+				</div>
 			</div>
-			<div class="form">
-				<form >
-					Date: 
-					<button class="btn-green"><</button>
-					<input type="date" name="datePicker">
-					<button class="btn-green">></button>
-				</form>
+		`);
+
+
+		let tableDiv = $(`
+			<div class="table_div">
 			</div>
-
-		`;
-
-		let htmljq = $(html);
-		htmljq.find("input[type='date']").attr("value", new Date().toJSON().slice(0,10));
-
-		this.$container.append(htmljq);
+		`);
 
 		let table = $('<table id="autoTable">').addClass('foo');
 		let i;
@@ -57,7 +36,7 @@ class RoomScheduleView {
 			for(j=0; j<=24; j++) {
 				if (i === 0) {
 					if (j === 0) {
-						col = $('<th>').addClass('head').text('Room\\Hour');
+						col = $('<th>').addClass('head').addClass('side').text('Čas');
 					}
 					else {
 						col = $('<th>').addClass('head').text(j - 1);
@@ -65,7 +44,7 @@ class RoomScheduleView {
 				}
 				else {
 					if (j === 0) {
-						col = $('<td>').addClass('head').text('room ' + i);
+						col = $('<th>').addClass('side').text('room ' + i);
 					}
 					else {
 						col = $('<td>').addClass('val').attr("data-row", i).attr("data-col", j);
@@ -75,9 +54,23 @@ class RoomScheduleView {
 			}
 			table.append(row);
 		}
-		this.$container.append(table);
+		tableDiv.append(table);
+
+		let roomDiv = $(`
+			<div class="room_div">
+			</div>
+		`);
+
+		roomDiv.append(form);
+		roomDiv.append(tableDiv);
+
+		this.$container.append(roomDiv);
+		this.today();
 
 		this.$container.find("td").filter(".val").on("click",(element) => this.pick($(element.currentTarget)));
+		this.$container.find("#prevDay").on("click",() => this.prev_day());
+		this.$container.find("#nextDay").on("click",() => this.next_day());
+		this.$container.find("#today").on("click",() => this.today());
 	}
 
 	pick($element) {
@@ -128,5 +121,30 @@ class RoomScheduleView {
 			}
 		}
 		this.fallback = false;
+	}
+
+	prev_day() {
+		let dt_picker = this.$container.find("#datePicker");
+		let dt = new Date(dt_picker.val());
+		dt.setDate(dt.getDate()-1);
+		dt_picker.val(dt.toISOString().slice(0,10));
+	}
+
+	next_day() {
+		let dt_picker = this.$container.find("#datePicker");
+		let dt = new Date(dt_picker.val());
+		dt.setDate(dt.getDate()+1);
+		dt_picker.val(dt.toISOString().slice(0,10));
+	}
+
+	today() {
+		console.log('today');
+		this.$container.find("#datePicker").val( new Date().toJSON().slice(0,10));
+	}
+
+	update($reservations, $rooms)
+	{
+		this.$reservations = $reservations;
+		this.$rooms = $rooms;
 	}
 }

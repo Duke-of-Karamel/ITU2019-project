@@ -237,27 +237,10 @@ textarea {
 }
 
 #autoTable {
-    table-layout: fixed ;
-    width: 100% ;
-    border-collapse: collapse ;
-    border: 1px black solid ;
-}
-
-#autoTable th, #autoTable td, #autoTable tr {
-    width: 50% ;
-    height: 100% ;
-    border: 1px black solid ;
-    padding: 10px ;
-}
-
-#autoTable .head {
-    background-image: linear-gradient(#65a33b, #4f8629);
-    color: #ffffff;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-#autoTable th:first-child {
-    width: 100% ;
+    table-layout: fixed;
+    border: 3px solid green;
+    width: 100%;
+    border-collapse: collapse;
 }
 
 #autoTable .val:hover {
@@ -267,4 +250,23 @@ textarea {
 
 #autoTable .picked {
     background-color:#65a33b;
+}
+
+#autoTable td {
+    padding: 30px 0;
+    border: 1px solid green;
+    background-color: white;
+}
+
+#autoTable .side {
+    border-right: 3px solid green;
+    border-bottom: 1px solid black;
+    background-color: rgb(245, 245, 245);
+    text-align: center;
+}
+
+#autoTable .head {
+    padding: 10px 0px;
+    border-bottom: 3px solid green;
+    background-image: linear-gradient(white, rgb(233, 233, 233));
 }
