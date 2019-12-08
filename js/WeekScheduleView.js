@@ -198,8 +198,8 @@ class WeekScheduleView
             }
         })
 
-        let day_date = new Date(this.$dt_selected.getTime());
         this.$container.find(".week_table .tHead .tDate").each((index, element) => {
+            let day_date = new Date(this.$dt_selected.getTime());
             let date = this.$dt_selected.getDate();
             let monday_zero = ((this.$dt_selected.getDay()+6)%7);
             let row = $(element).data("row");
