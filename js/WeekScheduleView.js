@@ -349,8 +349,10 @@ class WeekScheduleView
     isInPast(row, col)
     {
         let dt_now = new Date();
-        let dt_week_mon = new Date();
-        dt_week_mon.setDate(dt_week_mon.getDate()-(dt_week_mon.getDay()+6)%7);
+        dt_now.setHours(0);
+        dt_now.setMinutes(0);
+        let dt_week_mon = new Date(dt_now.getTime());
+        dt_week_mon.setDate(dt_now.getDate()-(dt_now.getDay()+6)%7);
 
         let past_week = dt_week_mon.getTime() > this.$dt_selected.getTime();
         let past_day  = (dt_now.getDay()+6)%7+1 > row;
