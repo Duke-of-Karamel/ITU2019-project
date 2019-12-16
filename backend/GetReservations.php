@@ -6,7 +6,7 @@
 require 'db_connect.php';
 mb_internal_encoding("utf-8");
 
-$sql_reservations = "SELECT * FROM reservations";
+$sql_reservations = "SELECT * FROM reservations ORDER BY dt_from DESC";
 $sql_rooms        = "SELECT * FROM rooms";
 
 $out = [];

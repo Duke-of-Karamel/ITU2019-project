@@ -287,6 +287,31 @@ textarea {
     background-color: red !important;
 }
 
+.roomButton {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.room-setup {
+    display: flex;
+    margin: auto;
+}
+
+.room-setup div {
+    margin-right: 20px;
+    font-size: 30px;
+}
+
+.room-setup-cont {
+    display: flex;
+    height: 70px;
+}
 .schema-pointer-container img {
     width: 40px;
     height: 40px;
@@ -321,12 +346,11 @@ textarea {
 }
 
 .this-user-mark {
-    background-color: blue !important;
-
+    background-image: repeating-linear-gradient(45deg, blue, blue 10px, rgb(0, 0, 0) 10px, black 10px, darkblue 20px) !important;
 }
 
 .other-user-mark {
-    background-color: red !important;
+    background-image: repeating-linear-gradient(45deg, red, red 10px, rgb(0, 0, 0) 10px, black 10px, darkred 20px) !important;
 }
 
 .selected-cell, .this-user-mark, .other-user-mark {
@@ -340,4 +364,9 @@ textarea {
 
 .week_table tr {
     height: 40px;
+}
+
+
+.past {
+    background-color: rgb(228, 228, 228) !important;
 }
